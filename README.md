@@ -26,9 +26,11 @@ Check out where this is on [google maps][cernmap].
 requirements
 ============
 
-You need to install the [geohash][geohash] library:
+You need to install the [geohash][geohash] and [bottle][bottlepy]
+libraries:
 
     $ pip install geohash
+    $ pip install bottle
 
 
 six words
@@ -89,7 +91,7 @@ The server requires [bottle.py][bottlepy] to be installed. It can be run
 locally by typing `./server.py` or `python server.py` respectively.
 
 
-this is a [@betatim][betatim] kind of idea
+brought to you by [@betatim][betatim] and [@kdungs][kdungs] productions
 
 [humanhash]: https://github.com/zacharyvoase/humanhash
 [geohash]: https://code.google.com/p/python-geohash/
@@ -97,3 +99,4 @@ this is a [@betatim][betatim] kind of idea
 [othercernmap]: https://www.google.ch/maps/place/46%C2%B015'24.5%22N+6%C2%B003'24.4%22E/@46.256811,6.056792,14z/data=!4m2!3m1!1s0x0:0x0
 [bottlepy]: http://bottlepy.org/
 [betatim]: https://twitter.com/betatim
+[kdungs]: https://twitter.com/kdungs
