@@ -78,10 +78,22 @@ have similar `these-3-words` hashes
 
 The other CERN site is [here][othercernmap].
 
+
+webservice
+==========
+
+The file `server.py` provides a tiny webservice that allows to display a
+location given by three words on a Google Maps map.
+
+The server requires [bottle.py][bottlepy] to be installed. It can be run
+locally by typing `./server.py` or `python server.py` respectively.
+
+
 this is a [@betatim][betatim] kind of idea
 
 [humanhash]: https://github.com/zacharyvoase/humanhash
 [geohash]: https://code.google.com/p/python-geohash/
 [cernmap]: https://www.google.ch/maps/place/46%C2%B013'56.4%22N+6%C2%B003'19.5%22E/@46.2323356,6.0554194,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0x0
 [othercernmap]: https://www.google.ch/maps/place/46%C2%B015'24.5%22N+6%C2%B003'24.4%22E/@46.256811,6.056792,14z/data=!4m2!3m1!1s0x0:0x0
+[bottlepy]: http://bottlepy.org/
 [betatim]: https://twitter.com/betatim
