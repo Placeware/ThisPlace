@@ -19,7 +19,7 @@ def index():
 def showMap(threewords):
     try:
         lat, lng = these.decode(threewords)
-        return template('map', lat=lat, lng=lng)
+        return template('map', lat=lat, lng=lng, threewords=threewords)
     except:
         return template('index',
                         err="Could not find location {}".format(threewords))
