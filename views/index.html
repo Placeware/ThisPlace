@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>these-3-words Map</title>
+  <!-- Style -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    % if err:
+    <aside class="alert alert-danger" role="alert">Error: {{ err }}</aside>
+    % end
+    <main class="jumbotron">
+      <h1>These3Words Map</h1>
+      <p class="lead">
+        Find a location anywhere in the word identified by three simple words.
+      </p>
+      <p id="input3wordsContainer">
+        <input type="text" class="form-control" id="input3words" placeholder="engirt-aleutic-canun">
+      </p>
+      <p>
+        <button id="button3words" class="btn btn-lg btn-primary">Find on Map</button>
+      </p>
+    </main>
+    <script>
+      (function() {
+        var default3words = 'engirt-aleutic-canun';
+        var threewordsField = document.getElementById('input3words');
+        document.getElementById('button3words').addEventListener('click', function(evt) {
+          var threewords = threewordsField.value;
+          if (threewords.length === 0) {
+            threewords = default3words;
+          }
+          if (/\w+-\w+-\w+/.test(threewords)) {
+            window.location = '/' + threewords;
+          } else {
+            document.getElementById('input3wordsContainer').classList.add('has-error');
+          }
+        });
+      })();
+    </script>
+</div>
+</body>
+</html>
