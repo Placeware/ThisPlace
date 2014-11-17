@@ -1,4 +1,4 @@
-these-3-words
+These3Words
 =============
 
 Address any 3meter x 3meter square on earth with a unique three word name.
