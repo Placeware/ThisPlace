@@ -1,3 +1,8 @@
+"""
+thesethreewords: Human-readable addresses for every 3x3m square of the earth's surface.
+The simplest ways to use this module are the `three_words` and `decode`
+functions. For more see `WordHasher`.
+"""
 import random
 
 import geohash
@@ -101,7 +106,7 @@ class WordHasher(object):
             i = self.unpad(i)
 
         else:
-            raise RuntimeError("Do not know how to decode set of %i words."%(len(words)))
+            raise RuntimeError("Do not know how to decode a set of %i words."%(len(words)))
 
         geo_hash = self.int_to_geo(i)
         return geohash.decode(geo_hash)
