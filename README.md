@@ -40,7 +40,8 @@ some fairly obscure words get on it. If you can live with
 having to remember six words the wordlist is much shorter.
 The six word wordlist comes from the amazing [humanhash][humanhash]
 library. Words were chosen to maximise clarity in human
-communication.
+communication, they should be more familiar than the words
+on the three wordlist:
 
     >>> six = these.six_words(CERN)
     >>> print six
