@@ -8,8 +8,8 @@ import random
 import geohash
 
 
-def get_google_words():
-    lines = open("words/google-ngram-list")
+def get_words(fname):
+    lines = open(fname)
     words = []
     for word in lines:
         words.append(word.strip())
@@ -17,10 +17,18 @@ def get_google_words():
     lines.close()
     random.seed(634634)
     random.shuffle(words)
+    words = words[:2**15]
+    assert len(words) == len(set(words))
     return words
-GOOGLE_WORDLIST = get_google_words()
+
+# These read like alien races from a sci-fi book
+GOOGLE_WORDLIST = get_words("words/google-ngram-list")
+# current best list for the three word hash
+WORDNET_LEMMAS = get_words("words/wordnet-list")
 
 # Human friendly word list, taken directly from humanhash project
+# these are the best words but there are not enough of
+# them so we only use them for the six word hash
 HUMAN_WORDLIST = (
         'ack', 'alabama', 'alanine', 'alaska', 'alpha', 'angel', 'apart', 'april',
         'arizona', 'arkansas', 'artist', 'asparagus', 'aspen', 'august', 'autumn',
@@ -75,7 +83,7 @@ class WordHasher(object):
         in degrees.
         """
         gh = geohash.encode(lat, lon, 9)
-        words = "-".join(GOOGLE_WORDLIST[p] for p in self.to_rugbits(self.geo_to_int(gh)))
+        words = "-".join(WORDNET_LEMMAS[p] for p in self.to_rugbits(self.geo_to_int(gh)))
         return words
 
     def six_words(self, (lat, lon)):
@@ -95,7 +103,7 @@ class WordHasher(object):
         """Decode words back to latitude and longitude"""
         words = words.split("-")
         if len(words) == 3:
-            i = self.rugbits_to_int([GOOGLE_WORDLIST.index(w) for w in words])
+            i = self.rugbits_to_int([WORDNET_LEMMAS.index(w) for w in words])
 
         elif len(words) == 6:
             i = self.bytes_to_int([HUMAN_WORDLIST.index(w) for w in words])

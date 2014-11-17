@@ -1,5 +1,15 @@
-Creating a word list
-====================
+Wordnet wordlist
+================
+
+This is a wordlist based on the lemmas in [WordNet][wordnet]. It
+produces a list of words much less esoteric than the google ngram
+list below.
+
+Run `wordnet.py` to create the wordnet wordlist.
+
+
+Creating the google word list
+=============================
 
 Download the corpus from [google ngram][googlengram] with:
 
@@ -7,6 +17,7 @@ Download the corpus from [google ngram][googlengram] with:
         wget http://storage.googleapis.com/books/ngrams/books/googlebooks-eng-all-1gram-20120701-$a.gz;
     done
 
+[wordnet]: http://wordnet.princeton.edu/
 [googlengram]: http://storage.googleapis.com/books/ngrams/books/datasetsv2.html
 
 then you can filter the words like this:

@@ -1,4 +1,7 @@
+import difflib
 import fileinput
+
+import nltk.stem as stem
 
 
 RUDEWORDS = """anal anus arse ass ballsack balls bastard bitch biatch bloody
@@ -13,7 +16,7 @@ xxx""".split()
 # Words that sound similar to others
 HOMOPHONES = """there their than then hear here capital capitol won to too lose
 loose dessert desert affect effect beech beet beat blew chili chilly
-dear deer days daze die dye lie lye""".split()
+dear deer days daze die dye lie lye""".lower().split()
 MORE_HOMOPHONES = """accessary, accessory ad, add ail, ale air, heir
 aisle, I'll, isle all, awl allowed, aloud alms, arms altar, alter arc,
 ark aren't, aunt ate, eight auger, augur auk, orc aural, oral away,
@@ -97,16 +100,48 @@ we'll, wheel wean, ween weather, whether weaver, weever weir, we're
 were, whirr wet, whet wheald, wheeled which, witch whig, wig while,
 wile whine, wine whirl, whorl whirled, world whit, wit white, wight
 who's, whose woe, whoa wood, would yaw, yore, your, you're yoke, yolk
-you'll, yule""".replace(",", " ").split()
+you'll, yule""".replace(",", " ").lower().split()
+
+wnl = stem.WordNetLemmatizer()
 
 REMOVE = HOMOPHONES + MORE_HOMOPHONES + RUDEWORDS
+REMOVE = set(wnl.lemmatize(R) for R in REMOVE)
 
+seen_words = []
+N = 0
 for line in fileinput.input():
     count, word = line.split()
+    word = word.lower()
+    #try:
+    #    word = wnl.lemmatize(word)
+    #
+    #except UnicodeDecodeError:
+    #    continue
+
+    if word.startswith("z"):
+        continue
+        
     if word in REMOVE:
         continue
 
     if len(word) == 4:
         continue
-    
-    print word.lower()
+
+    reject = False
+    s = difflib.SequenceMatcher(None, word, "A")
+    for w in seen_words:
+        s.set_seq2(w)
+        if s.ratio() > 0.8:
+            reject = True
+            break
+
+    if reject:
+        continue
+
+    seen_words.append(word)
+    N += 1
+    if N >= 10000:
+        seen_words = seen_words[-N:]
+        N = 0
+
+    print word
