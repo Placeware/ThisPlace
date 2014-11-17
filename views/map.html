@@ -6,12 +6,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>These3Words Map</title>
   <!-- Style -->
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <style type="text/css">
-    html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    html, body, #map-canvas {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #overlay {
+      background: rgba(255, 255, 255, .5);
+      border-radius: 10px;
+      padding: 0;
+      position: absolute;
+      left: 10px;
+      bottom: 30px;
+      max-width: 300px;
+    }
+
+    #overlay h4 {
+      background: rgba(255, 255, 255, .75);
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding: 10px;
+      margin: 0;
+    }
+
+    #overlay p {
+      padding: 10px;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
   <div id="map-canvas"></div>
+  <div id="overlay">
+    <h4>{{ threewords }}</h4>
+    <p><strong>Lat:</strong> {{ lat }}</p>
+    <p><strong>Long:</strong> {{ lng }}</p>
+  </div>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
   <script type="text/javascript">
     function initialize() {
