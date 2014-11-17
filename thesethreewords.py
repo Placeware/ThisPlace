@@ -153,12 +153,12 @@ class WordHasher(object):
     def bytes_to_int(self, bytes):
         """Convert a list of 6`bytes` to an integer"""
         assert len(bytes) == 6
-        byte_string = []
-        for b in bytes:
-            bs = bin(b)[2:]
-            bs = "0"*(8-len(bs)) + bs
-            byte_string.append(bs)
-        return int(''.join(byte_string), 2)
+        N = 0
+        bytes.reverse()
+        for n,b in enumerate(bytes):
+            N += b * (2**(8*(n)))
+            
+        return N
 
     def to_rugbits(self, integer):
         """Convert a 45bit `integer` to a list of 3rugbits
@@ -173,6 +173,7 @@ class WordHasher(object):
 
     def rugbits_to_int(self, rugbits):
         """Convert a list of `rugbits` to an integer"""
+        assert len(rugbits) == 3
         return (rugbits[0] *(2**30)) + (rugbits[1] *(2**15)) + (rugbits[2])
 
 
