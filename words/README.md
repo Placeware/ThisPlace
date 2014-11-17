@@ -21,7 +21,7 @@ To get a list of the top 300 words:
 
 To create the wordlist used by `These3Words` run:
 
-   sort -n googlebooks-eng-all-1gram-20120701-*-filtered | python normalise-words.py | tail -n32768 > google-ngram-list
+   sort -n googlebooks-eng-all-1gram-20120701-*-filtered | python normalise-words.py | sort | uniq | tail -n32768 > google-ngram-list
 
 Check that your list is long enough by counting the lines
 in `google-ngram-list`, you need exactly 32768 words

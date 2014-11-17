@@ -109,4 +109,4 @@ for line in fileinput.input():
     if len(word) == 4:
         continue
     
-    print count, word.lower()
+    print word.lower()

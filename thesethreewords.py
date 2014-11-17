@@ -11,9 +11,8 @@ import geohash
 def get_google_words():
     lines = open("words/google-ngram-list")
     words = []
-    for line in lines:
-        _, word = line.split()
-        words.append(word)
+    for word in lines:
+        words.append(word.strip())
 
     lines.close()
     random.seed(634634)
