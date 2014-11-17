@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import bottle
 from bottle import (
     get,
     run,
@@ -12,6 +13,7 @@ import thesethreewords as these
 @get('/')
 def index():
     return template('index', err=None)
+
 
 @get('/<threewords>')
 def showMap(threewords):
