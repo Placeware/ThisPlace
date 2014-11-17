@@ -8,21 +8,18 @@ import random
 import geohash
 
 
-def get_random_words():
-    words = open("/usr/share/dict/words")
-    random.seed(3346346)
-    useful = []
-    for w in words:
-        w = w.strip()
-        if 5 <= len(w) < 8:
-            useful.append(w.lower())
-            
-    words.close()
-    useful = useful[:2**15]
-    random.shuffle(useful)
-    assert len(useful) == 2**15
-    return useful
-RANDOM_WORDLIST = get_random_words()
+def get_google_words():
+    lines = open("words/google-ngram-list")
+    words = []
+    for line in lines:
+        _, word = line.split()
+        words.append(word)
+
+    lines.close()
+    random.seed(634634)
+    random.shuffle(words)
+    return words
+GOOGLE_WORDLIST = get_google_words()
 
 # Human friendly word list, taken directly from humanhash project
 HUMAN_WORDLIST = (
@@ -79,7 +76,7 @@ class WordHasher(object):
         in degrees.
         """
         gh = geohash.encode(lat, lon, 9)
-        words = "-".join(RANDOM_WORDLIST[p] for p in self.to_rugbits(self.geo_to_int(gh)))
+        words = "-".join(GOOGLE_WORDLIST[p] for p in self.to_rugbits(self.geo_to_int(gh)))
         return words
 
     def six_words(self, (lat, lon)):
@@ -99,7 +96,7 @@ class WordHasher(object):
         """Decode words back to latitude and longitude"""
         words = words.split("-")
         if len(words) == 3:
-            i = self.rugbits_to_int([RANDOM_WORDLIST.index(w) for w in words])
+            i = self.rugbits_to_int([GOOGLE_WORDLIST.index(w) for w in words])
 
         elif len(words) == 6:
             i = self.bytes_to_int([HUMAN_WORDLIST.index(w) for w in words])

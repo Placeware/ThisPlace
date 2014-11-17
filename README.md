@@ -16,7 +16,7 @@ example
 
     >>> three = these.three_words(CERN)
     >>> print three
-    'engirt-aleutic-canun'
+    'treaty-crane-seldes'
     >>> these.decode(three)
     (46.232335567474365, 6.055419445037842)
 
@@ -74,7 +74,7 @@ have similar `these-3-words` hashes
     >>> other_CERN_site = (46.256811, 6.056792)
     >>> six = these.six_words(other_CERN_site)
     >>> print six
-    ''spaghetti-carolina-kentucky-utah-seventeen-neptune'
+    'spaghetti-carolina-kentucky-utah-seventeen-neptune'
     >>> these.decode(six)
     (46.256797313690186, 6.056792736053467)
 

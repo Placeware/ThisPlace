@@ -52,3 +52,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# google ngram input files
+googlebooks-eng-all-1gram-20120701*
