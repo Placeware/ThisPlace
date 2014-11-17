@@ -16,7 +16,7 @@ example
 
     >>> three = these.three_words(CERN)
     >>> print three
-    'treaty-crane-seldes'
+    'zeljka-worry-suhai'
     >>> these.decode(three)
     (46.232335567474365, 6.055419445037842)
 
