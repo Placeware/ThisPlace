@@ -1,0 +1,2 @@
+python-geohash==0.8.5
+bottle==0.12.7

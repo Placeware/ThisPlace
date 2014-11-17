@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import bottle
 from bottle import (
     get,
     run,
@@ -13,6 +14,7 @@ import thesethreewords as these
 def index():
     return template('index', err=None)
 
+
 @get('/<threewords>')
 def showMap(threewords):
     try:
@@ -25,3 +27,5 @@ def showMap(threewords):
 
 if __name__ == '__main__':
     run(host='localhost', port=8080)
+
+app = bottle.default_app()
