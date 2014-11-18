@@ -1,68 +1,86 @@
-var These3Words = (function() {
+var These3Words = (function () {
   'use strict';
 
-  var apiGet = function(latLng, callback, callbackError) {
-    var request = new XMLHttpRequest();
+  var defaultLat = 46.2323355675,
+      defaultLng = 6.05541944504,
+      defaultLabel = 'spitting-ripple-fontanel';
+
+
+  var apiGet = function (latLng, callback, callbackError) {
+    var request = new window.XMLHttpRequest();
     request.open('GET', '/api/' + latLng.lat() + ',' + latLng.lng(), true);
-    request.onload = function() {
+    request.onload = function () {
       callback(request.status, JSON.parse(request.responseText));
     };
-    if (typeof callbackError !== "function") {
-      request.onerror = function() { /* Don't handle errors. */};
-    } else {
+    if (typeof callbackError === "function") {
       request.onerror = callbackError;
     }
     request.send();
   };
 
-  var defaultLat = 46.2323355675;
-  var defaultLng = 6.05541944504;
-  var defaultLabel = 'spitting-ripple-fontanel';
 
-  var Map = function(lat_, lng_, label_) {
-    this.lat = lat_ || defaultLat;
-    this.lng = lng_ || defaultLng;
-    this.label = label_ || defaultLabel;
+  var Map = function (lat, lng, label) {
+    this.latLng = new google.maps.LatLng(lat || defaultLat, lng || defaultLng);
+    this.label = label || defaultLabel;
 
     this.mapCanvas = null;
     this.map = null;
     this.marker = null;
   };
 
-  Map.prototype.init = function() {
+  Map.prototype.init = function () {
     var that = this;
-    var initMap = function() {
+    var initMap = function () {
       that.map = new google.maps.Map(that.mapCanvas, {
-        center: {lat: that.lat, lng: that.lng},
+        center: that.latLng,
         zoom: 14
       });
       that.marker = new google.maps.Marker({
-        position: {lat: that.lat, lng: that.lng},
+        position: that.latLng,
         map: that.map,
         title: that.label
       });
 
-      google.maps.event.addListener(that.map, 'click', function(evt) {
+      google.maps.event.addListener(that.map, 'click', function (evt) {
         that.moveTo(evt.latLng);
       });
     };
     this.mapCanvas = document.body.appendChild(document.createElement('div'));
     this.mapCanvas.id = 'map-canvas';
     google.maps.event.addDomListener(window, 'load', initMap);
-  };
-
-  Map.prototype.moveTo = function(latLng) {
-    var that = this;
-    apiGet(latLng, function(status, data) {
-      console.log(data);
-      if (status >= 200 && status < 400) {
-        that.lat = latLng.lat;
-        that.lng = latLng.lng;
-        that.label = data.three;
-        that.marker.setPosition(latLng);
-        that.marker.setTitle(that.label);
+    window.addEventListener('popstate', function (evt) {
+      var state = evt.state;
+      if (typeof state === "object") {
+        console.log(state);
+        that.update(new google.maps.LatLng(state.lat, state.lng), state.label);
       }
     });
+    window.history.replaceState({
+      lat: that.latLng.lat(),
+      lng: that.latLng.lng(),
+      label: that.label
+    }, that.label, '/' + that.label);
+  };
+
+  Map.prototype.moveTo = function (latLng) {
+    var that = this;
+    apiGet(latLng, function (status, data) {
+      if (status >= 200 && status < 400) {
+        that.update(latLng, data.three);
+        window.history.pushState({
+          lat: latLng.lat(),
+          lng: latLng.lng(),
+          label: data.three
+        }, data.three, '/' + data.three);
+      }
+    });
+  };
+
+  Map.prototype.update = function (latLng, label) {
+    this.latLng = latLng;
+    this.label = label;
+    this.marker.setPosition(latLng);
+    this.marker.setTitle(label);
   };
   
   
