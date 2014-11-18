@@ -30,15 +30,6 @@ def showMap(threewords):
         return template('index',
                         err="Could not find location {}".format(threewords))
 
-@get('/latlng/<lat:float>,<lng:float>')
-def showMapFromLatLng(lat, lng):
-    try:
-        threewords = these.three_words((lat, lng))
-        return template('map', lat=lat, lng=lng, threewords=threewords)
-    except:
-        return template('index',
-                        err="Could not find location {}".format(threewords))
-
 
 @get('/latlng/<lat:float>,<lng:float>')
 def showMapFromLatLng(lat, lng):
