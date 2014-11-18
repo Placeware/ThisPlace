@@ -1,0 +1,11 @@
+/** CSS for These3Words
+ * Some more information here.
+ * Or remove comment anyway because it's obvious.
+ */
+html,
+body,
+#map-canvas {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
