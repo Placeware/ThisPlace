@@ -9,7 +9,6 @@ from bottle import (
 )
 
 import thesethreewords as these
-import api as json_api
 
 
 @get('/static/<filename:path>')
