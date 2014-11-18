@@ -11,7 +11,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
   <script src="/static/js/app.js"></script>
 </head>
-<body>
+<body onload="initialize()">
   <div class="container">
     % if err:
     <aside class="alert alert-danger" role="alert">Error: {{ err }}</aside>
