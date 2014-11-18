@@ -4,11 +4,17 @@ import bottle
 from bottle import (
     get,
     run,
+    static_file,
     template
 )
 
 import thesethreewords as these
 import api as json_api
+
+
+@get('/static/<filename:path>')
+def serve_static(filename):
+    return static_file(filename, root='static')
 
 
 @get('/')
@@ -24,6 +30,27 @@ def showMap(threewords):
     except:
         return template('index',
                         err="Could not find location {}".format(threewords))
+
+
+# API
+@get('/api/<lat:float>,<lng:float>')
+def latLngToHash(lat, lng):
+    try:
+        three = these.three_words((lat,lng))
+        six = these.six_words((lat,lng))
+        return {'three': three, 'six': six}
+    except:
+        return {}
+
+
+@get('/api/<threewords>')
+def hashToLatLng(threewords):
+    try:
+        lat,lng = these.decode(threewords)
+        return {"lat": lat, "lng": lng}
+    except:
+        return {}
+
 
 
 if __name__ == '__main__':
