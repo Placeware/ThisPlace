@@ -134,6 +134,8 @@ var These3Words = (function () {
   
   
   return {
-    Map: Map
+    Map: Map,
+    apiGet: apiGet,
+    apiGetFromLatLng: apiGetFromLatLng
   };
 }());
