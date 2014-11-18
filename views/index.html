@@ -39,16 +39,13 @@
 <script>
 (function () {
     var initialise = function () {
-      // Create the autocomplete object, restricting the search
-      // to geographical location types.
+      var default3words = 'opulent-crusade-zaar';
       var searchbox = new google.maps.places.SearchBox(
            (document.getElementById('input3words')));
-      // When the user selects an address from the dropdown,
-      // populate the address fields in the form.
+
       google.maps.event.addListener(searchbox, 'places_changed', function() {
         // Get the place details from the autocomplete object.
         var places = searchbox.getPlaces();
-        console.log("HEllo");
         if (places.length > 0) {
           place = places[0];
           These3Words.apiGetFromLatLng(place.geometry.location,
@@ -63,6 +60,17 @@
             window.location = '/' + words;
           }
 	}
+      });
+      document.getElementById('button3words').addEventListener('click', function(evt) {
+	  var threewords = document.getElementById('input3words').value;
+          if (threewords.length === 0) {
+            threewords = default3words;
+          }
+          if (/\w+-\w+-\w+/.test(threewords)) {
+            window.location = '/' + threewords;
+          } else {
+            document.getElementById('input3wordsContainer').classList.add('has-error');
+          }
       });
     };
     window.addEventListener('load', initialise);
