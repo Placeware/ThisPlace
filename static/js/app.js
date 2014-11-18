@@ -44,6 +44,22 @@ var These3Words = (function () {
       google.maps.event.addListener(that.map, 'click', function (evt) {
         that.moveTo(evt.latLng);
       });
+
+      var searchInput = document.createElement('input');
+      searchInput.id = 'pac-input';
+      searchInput.classList.add('controls');
+      searchInput.setAttribute('type', 'text');
+      searchInput.setAttribute('placeholder', 'Search Box');
+      that.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchInput);
+      var searchBox = new google.maps.places.SearchBox(searchInput);
+      google.maps.event.addListener(searchBox, 'places_changed', function() {
+        var places = searchBox.getPlaces();
+        if (places.length > 0) {
+          var place = places[0];
+          that.map.setCenter(place.geometry.location);
+          that.moveTo(place.geometry.location);
+        }
+      });
     };
     this.mapCanvas = document.body.appendChild(document.createElement('div'));
     this.mapCanvas.id = 'map-canvas';
