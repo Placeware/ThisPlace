@@ -6,9 +6,9 @@ var These3Words = (function () {
       defaultLabel = 'spitting-ripple-fontanel';
 
 
-  var apiGet = function (latLng, callback, callbackError) {
+  var apiGet = function (req, callback, callbackError) {
     var request = new window.XMLHttpRequest();
-    request.open('GET', '/api/' + latLng.lat() + ',' + latLng.lng(), true);
+    request.open('GET', '/api/' + req, true);
     request.onload = function () {
       callback(request.status, JSON.parse(request.responseText));
     };
@@ -16,6 +16,10 @@ var These3Words = (function () {
       request.onerror = callbackError;
     }
     request.send();
+  };
+
+  var apiGetFromLatLng = function(latLng, callback, callbackError) {
+    apiGet('' + latLng.lat() + ',' + latLng.lng(), callback, callbackError);
   };
 
 
@@ -26,6 +30,9 @@ var These3Words = (function () {
     this.mapCanvas = null;
     this.map = null;
     this.marker = null;
+
+    this.searchInput = null;
+    this.searchBox = null;
   };
 
   Map.prototype.init = function () {
@@ -33,7 +40,18 @@ var These3Words = (function () {
     var initMap = function () {
       that.map = new google.maps.Map(that.mapCanvas, {
         center: that.latLng,
-        zoom: 14
+        zoom: 14,
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+          position: google.maps.ControlPosition.BOTTOM_LEFT
+        },
+        panControlOptions: {
+          position: google.maps.ControlPosition.LEFT_BOTTOM
+        },
+        streetViewControl: false,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.LEFT_BOTTOM
+        }
       });
       that.marker = new google.maps.Marker({
         position: that.latLng,
@@ -45,19 +63,31 @@ var These3Words = (function () {
         that.moveTo(evt.latLng);
       });
 
-      var searchInput = document.createElement('input');
-      searchInput.id = 'pac-input';
-      searchInput.classList.add('controls');
-      searchInput.setAttribute('type', 'text');
-      searchInput.setAttribute('placeholder', 'Search Box');
-      that.map.controls[google.maps.ControlPosition.TOP_LEFT].push(searchInput);
-      var searchBox = new google.maps.places.SearchBox(searchInput);
-      google.maps.event.addListener(searchBox, 'places_changed', function() {
-        var places = searchBox.getPlaces();
+      that.searchInput = document.createElement('input');
+      that.searchInput.value = that.label;
+      that.searchInput.id = 'pac-input';
+      that.searchInput.classList.add('controls');
+      that.searchInput.setAttribute('type', 'text');
+      that.searchInput.setAttribute('placeholder', 'These3Words');
+      that.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+          that.searchInput);
+      that.searchBox = new google.maps.places.SearchBox(that.searchInput);
+      google.maps.event.addListener(that.searchBox, 'places_changed',
+          function() {
+        var places = that.searchBox.getPlaces();
         if (places.length > 0) {
           var place = places[0];
           that.map.setCenter(place.geometry.location);
           that.moveTo(place.geometry.location);
+        } else {
+          var words = that.searchInput.value;
+          if (/\w+-\w+-\w+/.test(words)) {
+            apiGet(words, function(status, data) {
+              if (status >= 200 && status < 400) {
+                that.moveTo(new google.maps.LatLng(data.lat, data.lng), words);
+              }
+            });
+          }
         }
       });
     };
@@ -81,7 +111,7 @@ var These3Words = (function () {
 
   Map.prototype.moveTo = function (latLng) {
     var that = this;
-    apiGet(latLng, function (status, data) {
+    apiGetFromLatLng(latLng, function (status, data) {
       if (status >= 200 && status < 400) {
         that.update(latLng, data.three);
         window.history.pushState({
@@ -90,6 +120,7 @@ var These3Words = (function () {
           label: data.three
         }, data.three, '/' + data.three);
         document.title = 'These3Words: ' + data.three;
+        that.searchInput.value = data.three;
       }
     });
   };

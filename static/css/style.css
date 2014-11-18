@@ -11,7 +11,7 @@ body,
 }
 
 .controls {
-  margin-top: 16px;
+  margin: 16px;
   border: 1px solid transparent;
   border-radius: 2px 0 0 2px;
   box-sizing: border-box;
@@ -36,4 +36,14 @@ body,
   margin-left: -1px;
   padding-left: 14px;  /* Regular padding-left + 1. */
   width: 401px;
+}
+
+@media (max-width: 800px) {
+  .controls {
+    margin: 0;
+  }
+  #pac-input,
+  #pac-input:focus {
+    width: 100%;
+  }
 }
