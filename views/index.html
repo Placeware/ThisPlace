@@ -9,32 +9,9 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/css/style.css">
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-  <script>
-    function initialize() {
-      // Create the autocomplete object, restricting the search
-      // to geographical location types.
-      var searchbox = new google.maps.places.SearchBox(
-           (document.getElementById('input3words')));
-      // When the user selects an address from the dropdown,
-      // populate the address fields in the form.
-      google.maps.event.addListener(searchbox, 'places_changed', function() {
-        // Get the place details from the autocomplete object.
-        var places = searchbox.getPlaces();
-
-        if (places.length == 0) {
-          return;
-        }
-        
-        place = places[0];
-        lat = place.geometry.location.lat();
-        lng = place.geometry.location.lng();
-        window.location = '/latlng/' + lat +","+lng;
-        console.log("lat:" + lat + " lng:" + lng);
-      });
-    }
-  </script>
+  <script src="/static/js/app.js"></script>
 </head>
-<body onload="initialize()">
+<body>
   <div class="container">
     % if err:
     <aside class="alert alert-danger" role="alert">Error: {{ err }}</aside>
@@ -55,23 +32,38 @@
     <footer>
       <p class="text-center text-muted">Made with ♥ by <a href="https://betatim.github.io/">Tim</a> and <a href="https://dun.gs">Kevin</a>. <a href="https://github.com/betatim/these-3-words">Fork it on GitHub</a>.
     </footer>
-    <!--<script>
-      (function() {
-        var default3words = 'spitting-ripple-fontanel';
-        var threewordsField = document.getElementById('input3words');
-        document.getElementById('button3words').addEventListener('click', function(evt) {
-          var threewords = threewordsField.value;
-          if (threewords.length === 0) {
-            threewords = default3words;
-          }
-          if (/\w+-\w+-\w+/.test(threewords)) {
-            window.location = '/' + threewords;
-          } else {
-            document.getElementById('input3wordsContainer').classList.add('has-error');
-          }
-        });
-      })();
-    </script> -->
 </div>
+<script>
+(function () {
+    var initialise = function () {
+      // Create the autocomplete object, restricting the search
+      // to geographical location types.
+      var searchbox = new google.maps.places.SearchBox(
+           (document.getElementById('input3words')));
+      // When the user selects an address from the dropdown,
+      // populate the address fields in the form.
+      google.maps.event.addListener(searchbox, 'places_changed', function() {
+        // Get the place details from the autocomplete object.
+        var places = searchbox.getPlaces();
+        console.log("HEllo");
+        if (places.length > 0) {
+          place = places[0];
+          These3Words.apiGetFromLatLng(place.geometry.location,
+                                       function(status, data) {
+              if (status >= 200 && status < 400) {
+                window.location = "/" + data.three;
+              }
+          });
+        } else {
+          var words = document.getElementById('input3words').value;
+          if (/\w+-\w+-\w+/.test(words)) {
+            window.location = '/' + words;
+          }
+	}
+      });
+    };
+    window.addEventListener('load', initialise);
+}());
+</script>
 </body>
 </html>
