@@ -60,6 +60,7 @@ var These3Words = (function () {
       lng: that.latLng.lng(),
       label: that.label
     }, that.label, '/' + that.label);
+    document.title = 'These3Words: ' + that.label;
   };
 
   Map.prototype.moveTo = function (latLng) {
@@ -72,6 +73,7 @@ var These3Words = (function () {
           lng: latLng.lng(),
           label: data.three
         }, data.three, '/' + data.three);
+        document.title = 'These3Words: ' + data.three;
       }
     });
   };
