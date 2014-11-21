@@ -19,14 +19,21 @@
     <main class="jumbotron">
       <h1>These3Words Map</h1>
       <p class="lead">
-        Find a location anywhere in the world identified by three simple words.
+        Remember a location anywhere in the world with just three words.
       </p>
       <p class="text-warning">This is hot off the press. We are still
       finalising the word list so locations might not be
       reproducible. So do not use it to mark the location of your
       antarctic resupply drop quite yet!</p>
+      <p>
+	<ul class="lead">
+	  <li>Type in a location to find out the three words by which to remember it (try <i>1600 Pennsylvania avenue ...</i>)</li>
+	  <li>To find the location referenced by a set of three words given to you, type them in separated by a dash (try <i>scone-scud-inbox</i>)</li>
+	  <li>Go straight to exploring the map by clicking the <i>Find on Map</i> button</li>
+	</ul>
+      </p>
       <p id="input3wordsContainer">
-        <input type="text" class="form-control" id="input3words" placeholder="Your address OR opulent-crusade-zaar">
+        <input type="text" class="form-control" id="input3words" placeholder="1600 Pennsylvania .. OR scone-scud-inbox">
       </p>
       <p>
         <button id="button3words" class="btn btn-lg btn-primary">Find on Map</button>
@@ -39,7 +46,7 @@
 <script>
 (function () {
     var initialise = function () {
-      var default3words = 'opulent-crusade-zaar';
+      var default3words = 'scone-scud-inbox';
       var searchbox = new google.maps.places.SearchBox(
            (document.getElementById('input3words')));
 
