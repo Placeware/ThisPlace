@@ -1,4 +1,9 @@
-"""Filter and reformat the google ngram corpus"""
+"""Filter and reformat the google ngram corpus
+
+Remove really unpopular words, use 2008's count,
+try to remove abbreviations and words containing
+punctuation and digits.
+"""
 import string
 import fileinput
 
