@@ -1,9 +1,17 @@
 These3Words
 =============
 
-Address any 3meter x 3meter square on earth with a unique three word name.
+Remember a location anywhere in the world with just three words.
 
-Inspired by http://what3words.com/
+Try it: http://these3words.herokuapp.com/
+
+Some interesting locations:
+
+* [Battery Park, NYC][http://these3words.herokuapp.com/nikaya-caput-mahon]
+* [Downtown San Francisco][http://these3words.herokuapp.com/stitt-budged-tower]
+* [Sydney, Australia][http://these3words.herokuapp.com/scone-scud-inbox]
+
+This app was inspired by http://what3words.com/
 
 
 example
@@ -16,11 +24,11 @@ example
 
     >>> three = these.three_words(CERN)
     >>> print three
-    'spitting-ripple-fontanel' 
+    'closet-chou-maurel' 
     >>> these.decode(three)
     (46.232335567474365, 6.055419445037842)
 
-Check out where this is on [google maps][cernmap].
+See where this is on [These3Words map][cernmap].
 
 
 requirements
@@ -78,7 +86,7 @@ have similar `these-3-words` hashes
     >>> these.decode(six)
     (46.256797313690186, 6.056792736053467)
 
-The other CERN site is [here][othercernmap].
+The other CERN site is [here][othercernmap] on a map.
 
 
 webservice
@@ -95,8 +103,8 @@ brought to you by [@betatim][betatim] and [@kdungs][kdungs] productions
 
 [humanhash]: https://github.com/zacharyvoase/humanhash
 [geohash]: https://code.google.com/p/python-geohash/
-[cernmap]: https://www.google.ch/maps/place/46%C2%B013'56.4%22N+6%C2%B003'19.5%22E/@46.2323356,6.0554194,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0x0
-[othercernmap]: https://www.google.ch/maps/place/46%C2%B015'24.5%22N+6%C2%B003'24.4%22E/@46.256811,6.056792,14z/data=!4m2!3m1!1s0x0:0x0
+[cernmap]: http://these3words.herokuapp.com/closet-chou-maurel
+[othercernmap]: http://these3words.herokuapp.com/spaghetti-carolina-kentucky-utah-seventeen-neptune
 [bottlepy]: http://bottlepy.org/
 [betatim]: https://twitter.com/betatim
 [kdungs]: https://twitter.com/kdungs
