@@ -22,7 +22,7 @@ def get_words(fname):
     return words
 
 # These read like alien races from a sci-fi book
-GOOGLE_WORDLIST = get_words("words/google-ngram-list2")
+GOOGLE_WORDLIST = get_words("words/google-ngram-list")
 # current best list for the three word hash
 WORDNET_LEMMAS = get_words("words/wordnet-list")
 
