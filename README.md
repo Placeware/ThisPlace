@@ -7,9 +7,9 @@ Try it: http://these3words.herokuapp.com/
 
 Some interesting locations:
 
-* [Battery Park, NYC][http://these3words.herokuapp.com/nikaya-caput-mahon]
-* [Downtown San Francisco][http://these3words.herokuapp.com/stitt-budged-tower]
-* [Sydney, Australia][http://these3words.herokuapp.com/scone-scud-inbox]
+* [Battery Park, NYC](http://these3words.herokuapp.com/nikaya-caput-mahon)
+* [Downtown San Francisco](http://these3words.herokuapp.com/stitt-budged-tower)
+* [Sydney, Australia](http://these3words.herokuapp.com/scone-scud-inbox)
 
 This app was inspired by http://what3words.com/
 
