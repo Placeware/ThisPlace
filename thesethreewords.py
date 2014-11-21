@@ -22,7 +22,7 @@ def get_words(fname):
     return words
 
 # These read like alien races from a sci-fi book
-GOOGLE_WORDLIST = get_words("words/google-ngram-list")
+GOOGLE_WORDLIST = get_words("words/google-ngram-list2")
 # current best list for the three word hash
 WORDNET_LEMMAS = get_words("words/wordnet-list")
 
@@ -74,7 +74,8 @@ class WordHasher(object):
         self._symbols = "0123456789bcdefghjkmnpqrstuvwxyz"
         self._decode_symbols = dict((ch, i) for (i, ch) in enumerate(self._symbols))
         self._encode_symbols = dict((i, ch) for (i, ch) in enumerate(self._symbols))
-
+        self.six_wordlist = HUMAN_WORDLIST
+        self.three_wordlist = GOOGLE_WORDLIST
         
     def three_words(self, (lat, lon)):
         """Convert coordinate to a combination of three words
@@ -83,7 +84,7 @@ class WordHasher(object):
         in degrees.
         """
         gh = geohash.encode(lat, lon, 9)
-        words = "-".join(WORDNET_LEMMAS[p] for p in self.to_rugbits(self.geo_to_int(gh)))
+        words = "-".join(self.three_wordlist[p] for p in self.to_rugbits(self.geo_to_int(gh)))
         return words
 
     def six_words(self, (lat, lon)):
@@ -96,17 +97,17 @@ class WordHasher(object):
         which are short, easy to pronounce and easy distinguish.
         """
         gh = geohash.encode(lat, lon, 9)
-        words = "-".join(HUMAN_WORDLIST[p] for p in self.to_bytes(self.pad(gh)))
+        words = "-".join(self.six_wordlist[p] for p in self.to_bytes(self.pad(gh)))
         return words
 
     def decode(self, words):
         """Decode words back to latitude and longitude"""
         words = words.split("-")
         if len(words) == 3:
-            i = self.rugbits_to_int([WORDNET_LEMMAS.index(w) for w in words])
+            i = self.rugbits_to_int([self.three_wordlist.index(w) for w in words])
 
         elif len(words) == 6:
-            i = self.bytes_to_int([HUMAN_WORDLIST.index(w) for w in words])
+            i = self.bytes_to_int([self.six_wordlist.index(w) for w in words])
             i = self.unpad(i)
 
         else:

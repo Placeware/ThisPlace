@@ -1,5 +1,6 @@
 import difflib
 import fileinput
+import unicodedata
 
 import nltk.stem as stem
 
@@ -11,7 +12,8 @@ fellatio felching fuck fudgepacker fudge packer flange Goddamn God
 damn hell homo jerk jizz knobend knob end labia lmao lmfao muff nigger
 nigga omg penis piss poop prick pube pussy queer scrotum sex shit sh1t
 slut smegma spunk suicide tit tosser turd twat vagina wank whore wtf
-xxx""".split()
+xxx sexual sexily sexist sexing sexta sextet sexier sexton sextus
+wessex sexism sussex sexes sexual""".split()
 
 # Words that sound similar to others
 HOMOPHONES = """there their than then hear here capital capitol won to too lose
@@ -102,46 +104,24 @@ wile whine, wine whirl, whorl whirled, world whit, wit white, wight
 who's, whose woe, whoa wood, would yaw, yore, your, you're yoke, yolk
 you'll, yule""".replace(",", " ").lower().split()
 
+HANDPICKED = """buttel buttle wholes""".lower().split()
+
 wnl = stem.WordNetLemmatizer()
 
 REMOVE = HOMOPHONES + MORE_HOMOPHONES + RUDEWORDS
 REMOVE = set(wnl.lemmatize(R) for R in REMOVE)
 
-seen_words = []
-N = 0
 for line in fileinput.input():
     count, word = line.split()
     word = word.lower()
-    #try:
-    #    word = wnl.lemmatize(word)
-    #
-    #except UnicodeDecodeError:
-    #    continue
-
-    if word.startswith("z"):
-        continue
         
     if word in REMOVE:
         continue
-
-    if len(word) == 4:
+        
+    try:
+        word.decode('ascii')
+        
+    except UnicodeDecodeError:
         continue
 
-    reject = False
-    s = difflib.SequenceMatcher(None, word, "A")
-    for w in seen_words:
-        s.set_seq2(w)
-        if s.ratio() > 0.8:
-            reject = True
-            break
-
-    if reject:
-        continue
-
-    seen_words.append(word)
-    N += 1
-    if N >= 10000:
-        seen_words = seen_words[-N:]
-        N = 0
-
-    print word
+    print count, word
