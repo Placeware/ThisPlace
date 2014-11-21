@@ -7,9 +7,9 @@ Try it: http://these3words.herokuapp.com/
 
 Some interesting locations:
 
-* [Battery Park, NYC](http://these3words.herokuapp.com/nikaya-caput-mahon)
-* [Downtown San Francisco](http://these3words.herokuapp.com/stitt-budged-tower)
-* [Sydney, Australia](http://these3words.herokuapp.com/scone-scud-inbox)
+* [Battery Park, NYC](http://these3words.herokuapp.com/huai-sora-pelayo)
+* [Downtown San Francisco](http://these3words.herokuapp.com/smite-arends-nagler)
+* [Sydney, Australia](http://these3words.herokuapp.com/cuyler-propor-marias)
 
 This app was inspired by http://what3words.com/
 
@@ -24,7 +24,7 @@ example
 
     >>> three = these.three_words(CERN)
     >>> print three
-    'closet-chou-maurel' 
+    'turks-yunnan-salant'
     >>> these.decode(three)
     (46.232335567474365, 6.055419445037842)
 
@@ -103,7 +103,7 @@ brought to you by [@betatim][betatim] and [@kdungs][kdungs] productions
 
 [humanhash]: https://github.com/zacharyvoase/humanhash
 [geohash]: https://code.google.com/p/python-geohash/
-[cernmap]: http://these3words.herokuapp.com/closet-chou-maurel
+[cernmap]: http://these3words.herokuapp.com/turks-yunnan-salant
 [othercernmap]: http://these3words.herokuapp.com/spaghetti-carolina-kentucky-utah-seventeen-neptune
 [bottlepy]: http://bottlepy.org/
 [betatim]: https://twitter.com/betatim

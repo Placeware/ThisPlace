@@ -13,7 +13,9 @@ damn hell homo jerk jizz knobend knob end labia lmao lmfao muff nigger
 nigga omg penis piss poop prick pube pussy queer scrotum sex shit sh1t
 slut smegma spunk suicide tit tosser turd twat vagina wank whore wtf
 xxx sexual sexily sexist sexing sexta sextet sexier sexton sextus
-wessex sexism sussex sexes sexual""".split()
+wessex sexism sussex sexes sexual rapist rape raped rapee rapes nude
+nudist muff negro nazi nipple nudity lolita milf piss pissing porn
+pron pube pubes barf""".split()
 
 # Words that sound similar to others
 HOMOPHONES = """there their than then hear here capital capitol won to too lose
@@ -104,17 +106,20 @@ wile whine, wine whirl, whorl whirled, world whit, wit white, wight
 who's, whose woe, whoa wood, would yaw, yore, your, you're yoke, yolk
 you'll, yule""".replace(",", " ").lower().split()
 
-HANDPICKED = """buttel buttle wholes""".lower().split()
+HANDPICKED = """xxxiii buttel buttle wholes""".lower().split()
 
 wnl = stem.WordNetLemmatizer()
 
-REMOVE = HOMOPHONES + MORE_HOMOPHONES + RUDEWORDS
+REMOVE = HOMOPHONES + MORE_HOMOPHONES + RUDEWORDS + HANDPICKED
 REMOVE = set(wnl.lemmatize(R) for R in REMOVE)
 
 for line in fileinput.input():
     count, word = line.split()
     word = word.lower()
-        
+
+    if "xxx" in word:
+        continue
+    
     if word in REMOVE:
         continue
         

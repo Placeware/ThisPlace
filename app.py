@@ -11,6 +11,11 @@ from bottle import (
 import thesethreewords as these
 
 
+example_locs = [("sydney", (-33.867480754852295, 151.20700120925903)),
+                ("battery", (40.70329427719116, -74.0170168876648)),
+                ("san_fran", (37.790114879608154, -122.4202036857605))]
+example_locs = dict((name,these.three_words(pos)) for name,pos in example_locs)
+
 @get('/static/<filename:path>')
 def serve_static(filename):
     return static_file(filename, root='static')
@@ -18,7 +23,7 @@ def serve_static(filename):
 
 @get('/')
 def index():
-    return template('index', err=None)
+    return template('index', err=None, **example_locs)
 
 
 @get('/<threewords>')
@@ -28,7 +33,8 @@ def showMap(threewords):
         return template('map', lat=lat, lng=lng, threewords=threewords)
     except:
         return template('index',
-                        err="Could not find location {}".format(threewords))
+                        err="Could not find location {}".format(threewords),
+                        **example_locs)
 
 
 @get('/latlng/<lat:float>,<lng:float>')
@@ -38,7 +44,8 @@ def showMapFromLatLng(lat, lng):
         return template('map', lat=lat, lng=lng, threewords=threewords)
     except:
         return template('index',
-                        err="Could not find location {}".format(threewords))
+                        err="Could not find location {}".format(threewords),
+                        **example_locs)
 
 
 # API

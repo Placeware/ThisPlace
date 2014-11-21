@@ -28,12 +28,12 @@
       <p>
 	<ul class="lead">
 	  <li>Type in a location to find out the three words by which to remember it (try <i>1600 Pennsylvania avenue ...</i>)</li>
-	  <li>To find the location referenced by a set of three words given to you, type them in separated by a dash (try <i>scone-scud-inbox</i>)</li>
+	  <li>To find the location referenced by a set of three words given to you, type them in separated by a dash (try <i>{{ sydney }}</i>)</li>
 	  <li>Go straight to exploring the map by clicking the <i>Find on Map</i> button, it will take you to Sydney</li>
 	</ul>
       </p>
       <p id="input3wordsContainer">
-        <input type="text" class="form-control" id="input3words" placeholder="1600 Pennsylvania .. OR scone-scud-inbox">
+        <input type="text" class="form-control" id="input3words" placeholder="1600 Pennsylvania .. OR {{ sydney }}">
       </p>
       <p>
         <button id="button3words" class="btn btn-lg btn-primary">Find on Map</button>
@@ -41,9 +41,9 @@
       <p class="lead">
 	Some interesting locations to try out:
 	<ul class="lead">
-	  <li><a href="nikaya-caput-mahon">Battery Park, NYC</a></li>
-	  <li><a href="stitt-budged-tower">Downtown San Francisco</a></li>
-	  <li><a href="scone-scud-inbox">Sydney, Australia</a></li>
+	  <li><a href="{{ battery }}">Battery Park, NYC</a></li>
+	  <li><a href="{{ san_fran }}">Downtown San Francisco</a></li>
+	  <li><a href="{{ sydney }}">Sydney, Australia</a></li>
 	</ul>
       </p>
     </main>
@@ -54,7 +54,7 @@
 <script>
 (function () {
     var initialise = function () {
-      var default3words = 'scone-scud-inbox';
+      var default3words = '{{ sydney }}';
       var searchbox = new google.maps.places.SearchBox(
            (document.getElementById('input3words')));
 
