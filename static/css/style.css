@@ -45,5 +45,6 @@ body,
   #pac-input,
   #pac-input:focus {
     width: 100%;
+    margin: 0;
   }
 }
