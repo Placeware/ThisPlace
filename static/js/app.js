@@ -61,7 +61,16 @@ var These3Words = (function () {
 
       google.maps.event.addListener(that.map, 'click', function (evt) {
 	that.mapZoom = that.map.getZoom();
-        setTimeout(function() {that.moveTo(evt.latLng)}, 300);
+        setTimeout(function() {
+	    // if zoom level has changed then the user
+	    // double clicked instead of single clicked
+	    // so we do not want to move, just zoom
+	    if (that.map.getZoom() != that.mapZoom) {
+              return;
+	    }
+	    that.moveTo(evt.latLng);
+	},
+        300);
       });
 
       that.searchInput = document.createElement('input');
@@ -112,12 +121,6 @@ var These3Words = (function () {
 
   Map.prototype.moveTo = function (latLng) {
     var that = this;
-    // if zoom level has changed then the user
-    // double clicked instead of single clicked
-    // so we do not want to move, just zoom
-    if (that.map.getZoom() != that.mapZoom) {
-      return;
-    }
     apiGetFromLatLng(latLng, function (status, data) {
       if (status >= 200 && status < 400) {
         that.update(latLng, data.three);
