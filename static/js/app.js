@@ -130,6 +130,9 @@ var These3Words = (function () {
     this.label = label;
     this.marker.setPosition(latLng);
     this.marker.setTitle(label);
+    if (!this.map.getBounds().contains(latLng)) {
+      this.map.panTo(latLng);
+    }
   };
   
   
