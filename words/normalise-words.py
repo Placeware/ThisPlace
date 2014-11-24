@@ -106,7 +106,7 @@ wile whine, wine whirl, whorl whirled, world whit, wit white, wight
 who's, whose woe, whoa wood, would yaw, yore, your, you're yoke, yolk
 you'll, yule advice, advise""".replace(",", " ").lower().split()
 
-HANDPICKED = """xxxiii buttel buttle wholes incest jihad erect porte""".lower().split()
+HANDPICKED = """http buttel buttle wholes incest jihad erect porte""".lower().split()
 
 wnl = stem.WordNetLemmatizer()
 
@@ -117,7 +117,7 @@ for line in fileinput.input():
     count, word = line.split()
     word = word.lower()
 
-    if "xxx" in word:
+    if "xxx" in word or "xx" in word:
         continue
     
     if word in REMOVE:
