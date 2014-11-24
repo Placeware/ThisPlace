@@ -4,7 +4,7 @@
   <!-- Meta -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>These3Words Map</title>
+  <title>These4Words Map</title>
   <!-- Style -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/css/style.css">
@@ -17,7 +17,7 @@
     <aside class="alert alert-danger" role="alert">Error: {{ err }}</aside>
     % end
     <main class="jumbotron">
-      <h1>These3Words Map</h1>
+      <h1>These4Words Map</h1>
       <p class="lead">
         Remember a 3x3 m<sup>2</sup> location anywhere in the world with just four words.
       </p>
@@ -66,7 +66,7 @@
           These3Words.apiGetFromLatLng(place.geometry.location,
                                        function(status, data) {
               if (status >= 200 && status < 400) {
-                window.location = "/" + data.three;
+                window.location = "/" + data.four;
               }
           });
         } else {
