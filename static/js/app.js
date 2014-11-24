@@ -60,7 +60,17 @@ var These3Words = (function () {
       });
 
       google.maps.event.addListener(that.map, 'click', function (evt) {
-        that.moveTo(evt.latLng);
+	that.mapZoom = that.map.getZoom();
+        setTimeout(function() {
+	    // if zoom level has changed then the user
+	    // double clicked instead of single clicked
+	    // so we do not want to move, just zoom
+	    if (that.map.getZoom() != that.mapZoom) {
+              return;
+	    }
+	    that.moveTo(evt.latLng);
+	},
+        300);
       });
 
       that.searchInput = document.createElement('input');
