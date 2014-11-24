@@ -106,7 +106,8 @@ wile whine, wine whirl, whorl whirled, world whit, wit white, wight
 who's, whose woe, whoa wood, would yaw, yore, your, you're yoke, yolk
 you'll, yule advice, advise""".replace(",", " ").lower().split()
 
-HANDPICKED = """http buttel buttle wholes incest jihad erect porte""".lower().split()
+HANDPICKED = """nazi nazis nazism http buttel buttle
+wholes incest jihad erect porte""".lower().split()
 
 wnl = stem.WordNetLemmatizer()
 
