@@ -73,14 +73,38 @@ var These3Words = (function () {
         300);
       });
 
+      that.controls = document.createElement('div');
+      that.controls.id = 'pac-controls';
+      that.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+          that.controls);
+
       that.searchInput = document.createElement('input');
-      that.searchInput.value = that.label;
       that.searchInput.id = 'pac-input';
       that.searchInput.classList.add('controls');
       that.searchInput.setAttribute('type', 'text');
-      that.searchInput.setAttribute('placeholder', 'These3Words');
-      that.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
-          that.searchInput);
+      that.searchInput.setAttribute('placeholder', 'Search');
+      that.controls.appendChild(that.searchInput);
+
+      var infoBox = document.createElement('div');
+      infoBox.id = 'pac-infobox';
+      infoBox.classList.add('controls');
+      that.controls.appendChild(infoBox);
+
+      var infoText = document.createElement('span');
+      infoText.id = 'pac-infotext';
+      infoText.innerHTML = '4words:';
+      infoBox.appendChild(infoText);
+
+      that.infoLoc = document.createElement('span');
+      that.infoLoc.id = 'pac-infolocation';
+      that.infoLoc.innerHTML = that.label;
+      infoBox.appendChild(that.infoLoc);
+
+      that.infoLatLng = document.createElement('div');
+      that.infoLatLng.id = 'pac-infolatlng';
+      that.infoLatLng.innerHTML = that.latLng.lat().toFixed(6) +', '+ that.latLng.lng().toFixed(6);
+      infoBox.appendChild(that.infoLatLng);
+
       that.searchBox = new google.maps.places.SearchBox(that.searchInput);
       google.maps.event.addListener(that.searchBox, 'places_changed',
           function() {
@@ -117,6 +141,7 @@ var These3Words = (function () {
       label: that.label
     }, that.label, '/' + that.label);
     document.title = 'These3Words: ' + that.label;
+
   };
 
   Map.prototype.moveTo = function (latLng) {
@@ -130,7 +155,8 @@ var These3Words = (function () {
           label: data.four
         }, data.four, '/' + data.four);
         document.title = 'These3Words: ' + data.four;
-        that.searchInput.value = data.four;
+        that.infoLoc.innerHTML = data.four;
+        that.infoLatLng.innerHTML = latLng.lat().toFixed(6) +', '+ latLng.lng().toFixed(6);
       }
     });
   };
