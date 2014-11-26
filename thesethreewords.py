@@ -23,6 +23,8 @@ def get_words(fname):
 
 # These read like alien races from a sci-fi book
 GOOGLE_WORDLIST = get_words("words/google-ngram-list")
+# shorter list with only 4096 words
+GOOGLE_4096WORDS = get_words("words/google-ngram-list-4096")
 # current best list for the three word hash
 WORDNET_LEMMAS = get_words("words/wordnet-list")
 
@@ -75,6 +77,7 @@ class WordHasher(object):
         self._decode_symbols = dict((ch, i) for (i, ch) in enumerate(self._symbols))
         self._encode_symbols = dict((i, ch) for (i, ch) in enumerate(self._symbols))
         self.six_wordlist = HUMAN_WORDLIST
+        self.four_wordlist = GOOGLE_4096WORDS
         self.three_wordlist = GOOGLE_WORDLIST
         
     def three_words(self, (lat, lon)):
@@ -85,6 +88,16 @@ class WordHasher(object):
         """
         gh = geohash.encode(lat, lon, 9)
         words = "-".join(self.three_wordlist[p] for p in self.to_rugbits(self.geo_to_int(gh)))
+        return words
+
+    def four_words(self, (lat, lon)):
+        """Convert coordinate to a combination of four words
+
+        The coordinate is defined by latitude and longitude
+        in degrees.
+        """
+        gh = geohash.encode(lat, lon, 9)
+        words = "-".join(self.four_wordlist[p] for p in self.to_quads(self.pad(gh)))
         return words
 
     def six_words(self, (lat, lon)):
@@ -101,10 +114,14 @@ class WordHasher(object):
         return words
 
     def decode(self, words):
-        """Decode words back to latitude and longitude"""
+        """Decode `words` to latitude and longitude"""
         words = words.split("-")
         if len(words) == 3:
             i = self.rugbits_to_int([self.three_wordlist.index(w) for w in words])
+
+        elif len(words) == 4:
+            i = self.quads_to_int([self.four_wordlist.index(w) for w in words])
+            i = self.unpad(i)
 
         elif len(words) == 6:
             i = self.bytes_to_int([self.six_wordlist.index(w) for w in words])
@@ -165,6 +182,26 @@ class WordHasher(object):
             
         return N
 
+    def to_quads(self, integer):
+        """Convert a 48bit `integer` to a list of 4 quads"""
+        quads = [integer & 0b111111111111]
+        for n in xrange(1,4):
+            div = 2**(n*12)
+            quads.append((integer/div) & 0b111111111111)
+        
+        quads.reverse()
+        return quads
+
+    def quads_to_int(self, quads):
+        """Convert a list of four 12bit values to an integer"""
+        assert len(quads) == 4
+        N = 0
+        quads.reverse()
+        for n,b in enumerate(quads):
+            N += b * (2**(12*(n)))
+            
+        return N
+
     def to_rugbits(self, integer):
         """Convert a 45bit `integer` to a list of 3rugbits
     
@@ -184,5 +221,6 @@ class WordHasher(object):
 
 DEFAULT_HASHER = WordHasher()
 three_words = DEFAULT_HASHER.three_words
+four_words = DEFAULT_HASHER.four_words
 six_words = DEFAULT_HASHER.six_words
 decode = DEFAULT_HASHER.decode

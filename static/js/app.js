@@ -123,14 +123,14 @@ var These3Words = (function () {
     var that = this;
     apiGetFromLatLng(latLng, function (status, data) {
       if (status >= 200 && status < 400) {
-        that.update(latLng, data.three);
+        that.update(latLng, data.four);
         window.history.pushState({
           lat: latLng.lat(),
           lng: latLng.lng(),
-          label: data.three
-        }, data.three, '/' + data.three);
-        document.title = 'These3Words: ' + data.three;
-        that.searchInput.value = data.three;
+          label: data.four
+        }, data.four, '/' + data.four);
+        document.title = 'These3Words: ' + data.four;
+        that.searchInput.value = data.four;
       }
     });
   };

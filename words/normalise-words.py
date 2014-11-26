@@ -7,7 +7,7 @@ import nltk.stem as stem
 
 RUDEWORDS = """anal anus arse ass ballsack balls bastard bitch biatch bloody
 blowjob blow job bollock bollok boner boob bugger bum butt buttplug
-clitoris cock coon crap cunt damn dick dildo dyke fag feck fellate
+clitoris cock cocks coon crap cunt damn dick dildo dyke fag feck fellate
 fellatio felching fuck fudgepacker fudge packer flange Goddamn God
 damn hell homo jerk jizz knobend knob end labia lmao lmfao muff nigger
 nigga omg penis piss poop prick pube pussy queer scrotum sex shit sh1t
@@ -104,9 +104,10 @@ we'll, wheel wean, ween weather, whether weaver, weever weir, we're
 were, whirr wet, whet wheald, wheeled which, witch whig, wig while,
 wile whine, wine whirl, whorl whirled, world whit, wit white, wight
 who's, whose woe, whoa wood, would yaw, yore, your, you're yoke, yolk
-you'll, yule""".replace(",", " ").lower().split()
+you'll, yule advice, advise""".replace(",", " ").lower().split()
 
-HANDPICKED = """xxxiii buttel buttle wholes""".lower().split()
+HANDPICKED = """nazi nazis nazism http buttel buttle
+wholes incest jihad erect porte""".lower().split()
 
 wnl = stem.WordNetLemmatizer()
 
@@ -117,7 +118,7 @@ for line in fileinput.input():
     count, word = line.split()
     word = word.lower()
 
-    if "xxx" in word:
+    if "xxx" in word or "xx" in word:
         continue
     
     if word in REMOVE:
@@ -128,5 +129,7 @@ for line in fileinput.input():
         
     except UnicodeDecodeError:
         continue
+
+    word = wnl.lemmatize(word)
 
     print count, word

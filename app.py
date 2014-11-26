@@ -14,7 +14,7 @@ import thesethreewords as these
 example_locs = [("sydney", (-33.867480754852295, 151.20700120925903)),
                 ("battery", (40.70329427719116, -74.0170168876648)),
                 ("san_fran", (37.790114879608154, -122.4202036857605))]
-example_locs = dict((name,these.three_words(pos)) for name,pos in example_locs)
+example_locs = dict((name,these.four_words(pos)) for name,pos in example_locs)
 
 @get('/static/<filename:path>')
 def serve_static(filename):
@@ -40,7 +40,7 @@ def showMap(threewords):
 @get('/latlng/<lat:float>,<lng:float>')
 def showMapFromLatLng(lat, lng):
     try:
-        threewords = these.three_words((lat, lng))
+        threewords = these.four_words((lat, lng))
         return template('map', lat=lat, lng=lng, threewords=threewords)
     except:
         return template('index',
@@ -53,8 +53,9 @@ def showMapFromLatLng(lat, lng):
 def latLngToHash(lat, lng):
     try:
         three = these.three_words((lat,lng))
+        four = these.four_words((lat,lng))
         six = these.six_words((lat,lng))
-        return {'three': three, 'six': six}
+        return {'three': three, 'four': four, 'six': six}
     except:
         return {}
 

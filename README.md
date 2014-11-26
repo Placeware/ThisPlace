@@ -1,17 +1,22 @@
 These3Words
-=============
+===========
 
-Remember a location anywhere in the world with just three words.
+Remember a location anywhere in the world with just four words.
 
-Try it: http://these3words.herokuapp.com/
+Try it: http://thisplace.herokuapp.com/
 
 Some interesting locations:
 
-* [Battery Park, NYC](http://these3words.herokuapp.com/huai-sora-pelayo)
-* [Downtown San Francisco](http://these3words.herokuapp.com/smite-arends-nagler)
-* [Sydney, Australia](http://these3words.herokuapp.com/cuyler-propor-marias)
+* [Battery Park, NYC](http://thisplace.herokuapp.com/eating-stale-burney-raton)
+* [Downtown San Francisco](http://thisplace.herokuapp.com/lounge-charge-lias-fort)
+* [Sydney, Australia](http://thisplace.herokuapp.com/harris-medial-began-form)
 
 This app was inspired by http://what3words.com/
+
+We started with using three words as well but found that it required
+obscure words, so we settled for four. See [words, words,
+words](#words-words-words) for a discussion and use with shorter or
+longer wordlists.
 
 
 example
@@ -22,13 +27,13 @@ example
     # the home of particle physics
     >>> CERN = (46.232355, 6.055419)
 
-    >>> three = these.three_words(CERN)
-    >>> print three
-    'turks-yunnan-salant'
-    >>> these.decode(three)
+    >>> three = these.four_words(CERN)
+    >>> print four
+    'healer-danube-portal-custom'
+    >>> these.decode(four)
     (46.232335567474365, 6.055419445037842)
 
-See where this is on [These3Words map][cernmap].
+See where this is on [ThisPlace map][cernmap].
 
 
 requirements
@@ -41,13 +46,23 @@ libraries:
     $ pip install bottle
 
 
-six words
-=========
+words, words, words
+===================
 
-There are a lot of 3x3m squares on the earth's surface. To encode
-them in only three words requires a long wordlist, as a result
-some fairly obscure words get on it. If you can live with
-having to remember six words the wordlist is much shorter.
+There are a lot of 3x3m squares on the earth's surface.
+
+By default we use four words to address every square. However
+this library also supports using three or six words.
+
+To encode every square in only three words requires a long wordlist,
+as a result some fairly obscure words get on it. If you can live with
+having to remember more words the wordlist is much shorter and
+simpler.
+
+The methods to encode latitude and longitude in a different number of
+words are sensibly named: `three_words`, `four_words` and
+`six_words`. All of them can be decoded by the `decode` method.
+
 The six word wordlist comes from the amazing [humanhash][humanhash]
 library. Words were chosen to maximise clarity in human
 communication, they should be more familiar than the words
@@ -63,21 +78,13 @@ on the three wordlist:
 how it works
 ============
 
-Each latitude/longitude pair is converted to a nine
-character geohash. This provides about 3meter
-resolution at all latitudes. The geohash is then
-converted to an integer which is encoded as a string
+Each latitude/longitude pair is converted to a nine character
+geohash. This provides about 3meter resolution at all latitudes. The
+geohash is then converted to an integer which is encoded as a string
 of words.
 
-The wordlist used to encode the `geohash` into just
-three words uses your local computers dictionary. Some
-attempts are made to remove really obscure words but
-it could be better. You need to use the same wordlist
-when encoding and decoding a `these-3-words` hash.
-
-The `these-3-words` hash shares the
-property of a `geohash` that nearby locations share
-have similar `these-3-words` hashes
+The `these-3-words` hashes share the property of a `geohash` that
+nearby locations have similar `these-3-words` hashes:
 
     >>> other_CERN_site = (46.256811, 6.056792)
     >>> six = these.six_words(other_CERN_site)
@@ -85,8 +92,11 @@ have similar `these-3-words` hashes
     'spaghetti-carolina-kentucky-utah-seventeen-neptune'
     >>> these.decode(six)
     (46.256797313690186, 6.056792736053467)
+    >>> print these.six_words(CERN)
+    'spaghetti-carolina-kentucky-oscar-iowa-table'
 
-The other CERN site is [here][othercernmap] on a map.
+The other CERN site is [here][othercernmap] on a map, it is indeed
+close to the main [CERN site][cernmap].
 
 
 webservice
@@ -96,15 +106,15 @@ The file `server.py` provides a tiny webservice that allows to display a
 location given by three words on a Google Maps map.
 
 The server requires [bottle.py][bottlepy] to be installed. It can be run
-locally by typing `./server.py` or `python server.py` respectively.
+locally by typing `./app.py` or `python app.py` respectively.
 
 
 brought to you by [@betatim][betatim] and [@kdungs][kdungs] productions
 
 [humanhash]: https://github.com/zacharyvoase/humanhash
 [geohash]: https://code.google.com/p/python-geohash/
-[cernmap]: http://these3words.herokuapp.com/turks-yunnan-salant
-[othercernmap]: http://these3words.herokuapp.com/spaghetti-carolina-kentucky-utah-seventeen-neptune
+[cernmap]: http://thisplace.herokuapp.com/turks-yunnan-salant
+[othercernmap]: http://thisplace.herokuapp.com/spaghetti-carolina-kentucky-utah-seventeen-neptune
 [bottlepy]: http://bottlepy.org/
 [betatim]: https://twitter.com/betatim
 [kdungs]: https://twitter.com/kdungs
