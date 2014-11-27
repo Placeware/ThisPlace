@@ -32,6 +32,23 @@ body,
   font-size: 11px;
 }
 
+#pac-infodisplay {
+  float: left;
+  width: 300px;
+}
+
+#pac-infobox:after {
+  clear: both;
+  content: '.';
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+#pac-aboutbtn {
+  float: right;
+}
+
 #pac-infobox {
   margin-top: 2px;
   background-color: #fff;
@@ -64,6 +81,7 @@ body,
   .controls {
     margin: 0;
   }
+  #pac-infobox,
   #pac-input,
   #pac-input:focus {
     width: 100%;
