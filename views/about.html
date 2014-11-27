@@ -16,35 +16,61 @@
     % if err:
     <aside class="alert alert-danger" role="alert">Error: {{ err }}</aside>
     % end
-    <main class="jumbotron">
+    <main class="main">
       <h1>ThisPlace</h1>
-      <p class="lead">
-        Remember a 3x3 m<sup>2</sup> location anywhere in the world with just four words.
-      </p>
+      <!--<p class="lead">-->
+        <h3>Remember a 3x3 m<sup>2</sup> location anywhere in the world with just four words.</h3>
       <p class="text-warning">This is hot off the press. We are still
-      finalising the word list, locations might not be
-      reproducible. So do not use it to mark your
-      antarctic resupply drop quite yet!</p>
-      <p>
-	<ul class="lead">
-	  <li>Type in an address to find out its four words (try <i>1600 Pennsylvania avenue ...</i>)</li>
-	  <li>To find the location referenced by a set of four words, type them in separated by a dash (try <i>{{ sydney }}</i>)</li>
-	  <li>Go straight to exploring the map by clicking the <i>Find on Map</i> button, it will take you to Sydney</li>
-	</ul>
+	finalising the word list, locations might not be
+	reproducible. So do not use it to mark the location of your
+	antarctic resupply drop quite yet!
       </p>
+      <p class="lead">
+	Sharing a precise location with others is hard, especially if
+	you are trying to meet somewhere without a street
+	addresses. <a href="/">ThisPlace</a> lets you find four easy
+	to remember words that uniquely identify a location anywhere
+	on the planet.
+      </p>
+      <p class="lead">
+	Then share by: shouting them across a field, passing them on
+	over the phone, writing them down or even tweeting them. Reach
+	your friends where ever they are.
+      </p>
+      <p class="lead">
+	If you see <b>4words</b> anywhere you can easily look up the
+	corresponding location on this webpage.
+      </p>
+
+      <h2>Use it</h2>
+      <ul class="lead">
+	<li>Type in an address to find out its four words (try <i>1600 Pennsylvania avenue ...</i>)</li>
+	<li>To find the location referenced by a set of four words, type them in separated by a dash (try <i>{{ sydney }}</i>)</li>
+	<li>Go straight to exploring the map by clicking the <i>Find on Map</i> button, it will take you to Sydney</li>
+      </ul>
       <p id="input3wordsContainer">
         <input type="text" class="form-control" id="input3words" placeholder="1600 Pennsylvania .. OR {{ sydney }}">
       </p>
       <p>
         <button id="button3words" class="btn btn-lg btn-primary">Find on Map</button>
       </p>
+      <h2>Examples</h2>
       <p class="lead">
-	Some interesting locations to try out:
+	Some interesting locations to visit:
 	<ul class="lead">
 	  <li><a href="{{ battery }}">Battery Park, NYC</a></li>
 	  <li><a href="{{ san_fran }}">Downtown San Francisco</a></li>
 	  <li><a href="{{ sydney }}">Sydney, Australia</a></li>
 	</ul>
+      </p>
+      <h2>Open source</h2>
+      <p class="lead">
+	We believe in open source, so you can run your own
+	<b>4words</b> webpage and help people meet each other at the
+        right place. The project is hosted
+        on <a href="https://github.com">github</a> under the
+        name <a href="https://github.com/betatim/these-3-words">these-3-words</a>. Help
+        us make it more awesome!
       </p>
     </main>
     <footer>

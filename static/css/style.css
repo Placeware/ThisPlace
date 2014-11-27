@@ -10,6 +10,10 @@ body,
   padding: 0;
 }
 
+.main {
+  width: 75%;
+}
+
 .controls {
   margin: 16px;
   border: 1px solid transparent;
@@ -81,6 +85,7 @@ body,
   .controls {
     margin: 0;
   }
+  .main,
   #pac-infobox,
   #pac-input,
   #pac-input:focus {
