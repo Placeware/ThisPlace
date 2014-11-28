@@ -210,6 +210,7 @@ var These3Words = (function () {
       window.navigator.geolocation.getCurrentPosition(function (pos) {
         var latLng = new google.maps.LatLng(pos.coords.latitude,
                                             pos.coords.longitude);
+        that.map.setZoom(20);
         that.moveTo(latLng);
         that.btnGeolocation.toggleState();
       }, function (err) {
