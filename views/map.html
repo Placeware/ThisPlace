@@ -26,7 +26,11 @@
   <script>
     (function() {
       'use strict';
+    %if lat and lng:
       var map = new These3Words.Map({{lat}}, {{lng}}, '{{threewords}}');
+    %else:
+    var map = new These3Words.Map();
+    %end
       //google.maps.event.addDomListener(window, 'load', map.init);
       map.init();
      }());

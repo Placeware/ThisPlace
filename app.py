@@ -23,7 +23,12 @@ def serve_static(filename):
 
 @get('/')
 def index():
-    return template('index', err=None, **example_locs)
+    return template('map', lat=None, lng=None)
+
+
+@get('/about.html')
+def about():
+    return template('about', err=None, **example_locs)
 
 
 @get('/<threewords>')
@@ -32,7 +37,7 @@ def showMap(threewords):
         lat, lng = these.decode(threewords)
         return template('map', lat=lat, lng=lng, threewords=threewords)
     except:
-        return template('index',
+        return template('about',
                         err="Could not find location {}".format(threewords),
                         **example_locs)
 

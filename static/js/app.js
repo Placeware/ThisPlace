@@ -1,9 +1,9 @@
 var These3Words = (function () {
   'use strict';
 
-  var defaultLat = 46.2323355675,
-      defaultLng = 6.05541944504,
-      defaultLabel = 'spitting-ripple-fontanel';
+  var defaultLat = 46.233350,
+      defaultLng = 6.055999,
+      defaultLabel = 'outcry-danube-bat-bauman';
 
 
   var apiGet = function (req, callback, callbackError) {
@@ -43,14 +43,14 @@ var These3Words = (function () {
         zoom: 14,
         mapTypeControlOptions: {
           style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-          position: google.maps.ControlPosition.BOTTOM_LEFT
+          position: google.maps.ControlPosition.RIGHT_BOTTOM,
         },
         panControlOptions: {
-          position: google.maps.ControlPosition.LEFT_BOTTOM
+          position: google.maps.ControlPosition.RIGHT_BOTTOM,
         },
         streetViewControl: false,
         zoomControlOptions: {
-          position: google.maps.ControlPosition.LEFT_BOTTOM
+          position: google.maps.ControlPosition.RIGHT_BOTTOM,
         }
       });
       that.marker = new google.maps.Marker({
@@ -73,37 +73,49 @@ var These3Words = (function () {
         300);
       });
 
-      that.controls = document.createElement('div');
-      that.controls.id = 'pac-controls';
-      that.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
-          that.controls);
-
       that.searchInput = document.createElement('input');
       that.searchInput.id = 'pac-input';
       that.searchInput.classList.add('controls');
       that.searchInput.setAttribute('type', 'text');
       that.searchInput.setAttribute('placeholder', 'Search');
-      that.controls.appendChild(that.searchInput);
+      that.map.controls[google.maps.ControlPosition.LEFT_TOP].push(
+          that.searchInput);
 
       var infoBox = document.createElement('div');
       infoBox.id = 'pac-infobox';
       infoBox.classList.add('controls');
-      that.controls.appendChild(infoBox);
+      that.map.controls[google.maps.ControlPosition.LEFT_TOP].push(
+          infoBox);
 
+      var infoDisplay = document.createElement('span');
+      infoDisplay.id = 'pac-infodisplay';
+      infoBox.appendChild(infoDisplay);
+
+      var info = document.createElement('div');
+      //info.id = 'pac-blah';
+      infoDisplay.appendChild(info);
+      
       var infoText = document.createElement('span');
       infoText.id = 'pac-infotext';
       infoText.innerHTML = '4words:';
-      infoBox.appendChild(infoText);
+      info.appendChild(infoText);
 
       that.infoLoc = document.createElement('span');
       that.infoLoc.id = 'pac-infolocation';
       that.infoLoc.innerHTML = that.label;
-      infoBox.appendChild(that.infoLoc);
+      info.appendChild(that.infoLoc);
 
       that.infoLatLng = document.createElement('div');
       that.infoLatLng.id = 'pac-infolatlng';
       that.infoLatLng.innerHTML = that.latLng.lat().toFixed(6) +', '+ that.latLng.lng().toFixed(6);
-      infoBox.appendChild(that.infoLatLng);
+      infoDisplay.appendChild(that.infoLatLng);
+
+      var aboutBtn = document.createElement('span');
+      aboutBtn.id = 'pac-aboutbtn';
+      infoBox.appendChild(aboutBtn);
+      var aboutLnk = aboutBtn.appendChild(document.createElement('a'));
+      aboutLnk.href = "/about.html";
+      aboutLnk.innerHTML = "About";
 
       that.searchBox = new google.maps.places.SearchBox(that.searchInput);
       google.maps.event.addListener(that.searchBox, 'places_changed',
@@ -140,7 +152,7 @@ var These3Words = (function () {
       lng: that.latLng.lng(),
       label: that.label
     }, that.label, '/' + that.label);
-    document.title = 'These3Words: ' + that.label;
+    document.title = 'ThisPlace: ' + that.label;
 
   };
 
@@ -154,7 +166,7 @@ var These3Words = (function () {
           lng: latLng.lng(),
           label: data.four
         }, data.four, '/' + data.four);
-        document.title = 'These3Words: ' + data.four;
+        document.title = 'ThisPlace: ' + data.four;
         that.infoLoc.innerHTML = data.four;
         that.infoLatLng.innerHTML = latLng.lat().toFixed(6) +', '+ latLng.lng().toFixed(6);
       }

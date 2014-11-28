@@ -1,13 +1,13 @@
-/** CSS for These3Words
- * Some more information here.
- * Or remove comment anyway because it's obvious.
- */
 html,
 body,
 #map-canvas {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.main {
+  width: 75%;
 }
 
 .controls {
@@ -30,6 +30,23 @@ body,
   color: #999;
   font-weight: 500;
   font-size: 11px;
+}
+
+#pac-infodisplay {
+  float: left;
+  width: 300px;
+}
+
+#pac-infobox:after {
+  clear: both;
+  content: '.';
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+#pac-aboutbtn {
+  float: right;
 }
 
 #pac-infobox {
@@ -64,6 +81,8 @@ body,
   .controls {
     margin: 0;
   }
+  .main,
+  #pac-infobox,
   #pac-input,
   #pac-input:focus {
     width: 100%;
