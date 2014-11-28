@@ -205,25 +205,40 @@ var These3Words = (function () {
 
   Map.prototype.moveToGeolocation = function () {
     if (window.navigator.geolocation) {
+      var done = false;
       var that = this;
       that.btnGeolocation.toggleState();
       window.navigator.geolocation.getCurrentPosition(function (pos) {
-        var latLng = new google.maps.LatLng(pos.coords.latitude,
-                                            pos.coords.longitude);
-        that.map.setZoom(20);
-        that.moveTo(latLng);
-        that.btnGeolocation.toggleState();
-      }, function (err) {
-        if (err.code === 1) {  // User denied
-          window.alert("You disabled geolocation. Please enable it for this"
-                       + " feature to work.");
-        } else {
-          window.alert("We are very sorry but have trouble locating you.\n"
-                       + "If you are interested in the error message, here it"
-                       + " is: \n\n" + err.message);
+        if (!done) {
+          var latLng = new google.maps.LatLng(pos.coords.latitude,
+                                              pos.coords.longitude);
+          that.map.setZoom(20);
+          that.moveTo(latLng);
+          that.btnGeolocation.toggleState();
+          done = true;
         }
-        that.btnGeolocation.toggleState();
-      });      
+      }, function (err) {
+        if (!done) {
+          if (err.code === 1) {  // User denied
+            window.alert("You disabled geolocation. Please enable it for this"
+                         + " feature to work.");
+          } else {
+            window.alert("We are very sorry but are having trouble locating"
+                         + " you.\nIf you are interested in the error message,"
+                         + " here it is: \n\n" + err.message);
+          }
+          that.btnGeolocation.toggleState();
+          done = true;
+        }
+      });
+      // Abort if nothing happened after 10 seconds.
+      window.setTimeout(function () {
+        if (!done) {
+          window.alert("We were not able to determine your position.");
+          that.btnGeolocation.toggleState();
+          done = true;
+        }
+      }, 10000);
     }
   };
 
