@@ -152,7 +152,7 @@ var These3Words = (function () {
       lng: that.latLng.lng(),
       label: that.label
     }, that.label, '/' + that.label);
-    document.title = 'These3Words: ' + that.label;
+    document.title = 'ThisPlace: ' + that.label;
 
   };
 
@@ -166,7 +166,7 @@ var These3Words = (function () {
           lng: latLng.lng(),
           label: data.four
         }, data.four, '/' + data.four);
-        document.title = 'These3Words: ' + data.four;
+        document.title = 'ThisPlace: ' + data.four;
         that.infoLoc.innerHTML = data.four;
         that.infoLatLng.innerHTML = latLng.lat().toFixed(6) +', '+ latLng.lng().toFixed(6);
       }
