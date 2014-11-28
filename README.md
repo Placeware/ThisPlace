@@ -7,16 +7,16 @@ Try it: http://thisplace.herokuapp.com/
 
 Some interesting locations:
 
-* [Battery Park, NYC](http://thisplace.herokuapp.com/eating-stale-burney-raton)
-* [Downtown San Francisco](http://thisplace.herokuapp.com/lounge-charge-lias-fort)
-* [Sydney, Australia](http://thisplace.herokuapp.com/harris-medial-began-form)
+* [Battery Park, NYC](http://thisplace.herokuapp.com/lawful-lazily-brute-brody)
+* [Downtown San Francisco](http://thisplace.herokuapp.com/look-wander-guinea-madden)
+* [Sydney, Australia](http://thisplace.herokuapp.com/sting-metz-wyoming-nineteen)
 
 This app was inspired by http://what3words.com/
 
 We started with using three words as well but found that it required
 obscure words, so we settled for four. See [words, words,
-words](#words-words-words) for a discussion and use with shorter or
-longer wordlists.
+words](#words-words-words) for a discussion and how to use this with
+shorter or longer wordlists.
 
 
 example
