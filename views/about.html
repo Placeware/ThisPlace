@@ -89,8 +89,8 @@
         var places = searchbox.getPlaces();
         if (places.length > 0) {
           place = places[0];
-          These3Words.apiGetFromLatLng(place.geometry.location,
-                                       function(status, data) {
+          ThisPlace.apiGetFromLatLng(place.geometry.location,
+                                     function(status, data) {
               if (status >= 200 && status < 400) {
                 window.location = "/" + data.four;
               }
