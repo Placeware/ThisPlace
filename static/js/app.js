@@ -1,3 +1,5 @@
+/*jslint browser: true*/
+/*global google*/
 var These3Words = (function () {
   'use strict';
 
@@ -19,7 +21,7 @@ var These3Words = (function () {
   };
 
   var apiGetFromLatLng = function(latLng, callback, callbackError) {
-    apiGet('' + latLng.lat() + ',' + latLng.lng(), callback, callbackError);
+    apiGet(latLng.lat() + ',' + latLng.lng(), callback, callbackError);
   };
 
 
@@ -60,17 +62,16 @@ var These3Words = (function () {
       });
 
       google.maps.event.addListener(that.map, 'click', function (evt) {
-	that.mapZoom = that.map.getZoom();
-        setTimeout(function() {
-	    // if zoom level has changed then the user
-	    // double clicked instead of single clicked
-	    // so we do not want to move, just zoom
-	    if (that.map.getZoom() != that.mapZoom) {
-              return;
-	    }
-	    that.moveTo(evt.latLng);
-	},
-        300);
+        that.mapZoom = that.map.getZoom();
+        setTimeout(function () {
+	      // if zoom level has changed then the user
+	      // double clicked instead of single clicked
+	      // so we do not want to move, just zoom
+	      if (that.map.getZoom() !== that.mapZoom) {
+            return;
+	      }
+          that.moveTo(evt.latLng);
+        }, 300);
       });
 
       that.searchInput = document.createElement('input');
@@ -107,7 +108,8 @@ var These3Words = (function () {
 
       that.infoLatLng = document.createElement('div');
       that.infoLatLng.id = 'pac-infolatlng';
-      that.infoLatLng.innerHTML = that.latLng.lat().toFixed(6) +', '+ that.latLng.lng().toFixed(6);
+      that.infoLatLng.innerHTML = that.latLng.lat().toFixed(6) + ', '
+                                + that.latLng.lng().toFixed(6);
       infoDisplay.appendChild(that.infoLatLng);
 
       var aboutBtn = document.createElement('span');
@@ -168,7 +170,8 @@ var These3Words = (function () {
         }, data.four, '/' + data.four);
         document.title = 'ThisPlace: ' + data.four;
         that.infoLoc.innerHTML = data.four;
-        that.infoLatLng.innerHTML = latLng.lat().toFixed(6) +', '+ latLng.lng().toFixed(6);
+        that.infoLatLng.innerHTML = latLng.lat().toFixed(6) + ', '
+                                  + latLng.lng().toFixed(6);
       }
     });
   };
@@ -182,8 +185,7 @@ var These3Words = (function () {
       this.map.panTo(latLng);
     }
   };
-  
-  
+
   return {
     Map: Map,
     apiGet: apiGet,
