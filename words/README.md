@@ -37,3 +37,34 @@ Final step in creating a wordlist useable by `These3Words` is to run:
 
 Check that your list is long enough by counting the lines
 in `google-ngram-list`, you need exactly 32768 words.
+
+
+Refine a wordlist
+=================
+
+There will be inappropriate words in the wordlist which
+are easier to find by hand than automatically.
+
+Get an alphabetic list of words
+
+    cat google-ngram-list | sort > sorted
+
+Then split it into files of 50 words each, this
+makes reading them easier, especially if you
+want to take a break in between:
+
+    split -l 50 sorted words.
+
+To make a list of all words you have removed run:
+
+   cat words.* > words 
+   comm -23 sorted words > hand-removed-words
+
+It makes sense to keep that file around in case
+you have to regenerate your wordlist.
+
+Add in all the humanhash words to refill the list
+as well as other hand picked words. Make things
+unique again:
+
+    cat words humanhash-words hand-added-words | sort | uniq > words-plus-humanhash
