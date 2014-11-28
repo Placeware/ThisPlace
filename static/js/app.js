@@ -139,16 +139,22 @@ var These3Words = (function () {
         }
       });
 
-      var btnGeolocation = document.createElement('a');
-      btnGeolocation.classList.add('controls', 'btn', 'btn-default');
-      btnGeolocation.innerHTML = '<i class="fa fa-map-marker"></i>';
-      btnGeolocation.addEventListener('click', function (evt) {
-        console.log(evt);
-        //evt.preventDefault();
+      that.icnGeolocation = document.createElement('i');
+      that.icnGeolocation.classList.add('fa', 'fa-map-marker');
+      that.btnGeolocation = document.createElement('button');
+      that.btnGeolocation.classList.add('controls', 'btn', 'btn-default');
+      that.btnGeolocation.appendChild(that.icnGeolocation);
+      that.btnGeolocation.addEventListener('click', function () {
         that.moveToGeolocation();
       });
       that.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
-          btnGeolocation);
+          that.btnGeolocation);
+      that.btnGeolocation.toggleState = function () {
+          that.icnGeolocation.classList.toggle('fa-map-marker');
+          that.icnGeolocation.classList.toggle('fa-spin');
+          that.icnGeolocation.classList.toggle('fa-spinner');
+          this.disabled = !this.disabled;
+      };
     };
 
     this.mapCanvas = document.body.appendChild(document.createElement('div'));
@@ -198,12 +204,14 @@ var These3Words = (function () {
   };
 
   Map.prototype.moveToGeolocation = function () {
-    var that = this;
     if (window.navigator.geolocation) {
+      var that = this;
+      that.btnGeolocation.toggleState();
       window.navigator.geolocation.getCurrentPosition(function (pos) {
         var latLng = new google.maps.LatLng(pos.coords.latitude,
                                             pos.coords.longitude);
         that.moveTo(latLng);
+        that.btnGeolocation.toggleState();
       }, function (err) {
         if (err.code === 1) {  // User denied
           window.alert("You disabled geolocation. Please enable it for this"
@@ -213,6 +221,7 @@ var These3Words = (function () {
                        + "If you are interested in the error message, here it"
                        + " is: \n\n" + err.message);
         }
+        that.btnGeolocation.toggleState();
       });      
     }
   };
