@@ -31,7 +31,7 @@ To get a list of the top 300 words:
 
     sort -n googlebooks-eng-all-1gram-20120701-*-filtered | tail -n 300
 
-Final step in creating a wordlist useable by `These3Words` is to run:
+Final step in creating a wordlist useable by `ThisPlace` is to run:
 
    sort -n googlebooks-eng-all-1gram-20120701-*-filtered | python normalise-words.py | sort -k 2 | uniq -f 1 | sort -n | tail -n32768 | awk '{print $2}' > google-ngram-list
 

@@ -1,6 +1,6 @@
 /*jslint browser: true*/
 /*global google*/
-var These3Words = (function () {
+var ThisPlace = (function () {
   'use strict';
 
   var defaultLat = 46.233350,
