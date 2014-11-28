@@ -62,3 +62,9 @@ To make a list of all words you have removed run:
 
 It makes sense to keep that file around in case
 you have to regenerate your wordlist.
+
+Add in all the humanhash words to refill the list
+as well as other hand picked words. Make things
+unique again:
+
+    cat words humanhash-words hand-added-words | sort | uniq > words-plus-humanhash
