@@ -138,14 +138,25 @@ var These3Words = (function () {
           }
         }
       });
+
+      var btnGeolocation = document.createElement('a');
+      btnGeolocation.classList.add('controls', 'btn', 'btn-default');
+      btnGeolocation.innerHTML = '<i class="fa fa-map-marker"></i>';
+      btnGeolocation.addEventListener('click', function (evt) {
+        console.log(evt);
+        //evt.preventDefault();
+        that.moveToGeolocation();
+      });
+      that.map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
+          btnGeolocation);
     };
+
     this.mapCanvas = document.body.appendChild(document.createElement('div'));
     this.mapCanvas.id = 'map-canvas';
     google.maps.event.addDomListener(window, 'load', initMap);
     window.addEventListener('popstate', function (evt) {
       var state = evt.state;
       if (typeof state === "object") {
-        console.log(state);
         that.update(new google.maps.LatLng(state.lat, state.lng), state.label);
       }
     });
@@ -183,6 +194,26 @@ var These3Words = (function () {
     this.marker.setTitle(label);
     if (!this.map.getBounds().contains(latLng)) {
       this.map.panTo(latLng);
+    }
+  };
+
+  Map.prototype.moveToGeolocation = function () {
+    var that = this;
+    if (window.navigator.geolocation) {
+      window.navigator.geolocation.getCurrentPosition(function (pos) {
+        var latLng = new google.maps.LatLng(pos.coords.latitude,
+                                            pos.coords.longitude);
+        that.moveTo(latLng);
+      }, function (err) {
+        if (err.code === 1) {  // User denied
+          window.alert("You disabled geolocation. Please enable it for this"
+                       + " feature to work.");
+        } else {
+          window.alert("We are very sorry but have trouble locating you.\n"
+                       + "If you are interested in the error message, here it"
+                       + " is: \n\n" + err.message);
+        }
+      });      
     }
   };
 
