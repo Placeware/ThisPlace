@@ -3,7 +3,7 @@ var These3Words = (function () {
 
   var defaultLat = 46.233350,
       defaultLng = 6.055999,
-      defaultLabel = 'outcry-danube-bat-bauman';
+      defaultLabel = 'graham-ingram-julien-despot';
 
 
   var apiGet = function (req, callback, callbackError) {
