@@ -238,7 +238,7 @@ var These3Words = (function () {
           that.btnGeolocation.toggleState();
           done = true;
         }
-      }, 10000);
+      }, 5000);
     }
   };
 
