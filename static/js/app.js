@@ -128,14 +128,14 @@ var These3Words = (function () {
          apiGet(words, function(status, data) {
            if (status >= 200 && status < 400) {
 	     that.moveTo(new google.maps.LatLng(data.lat, data.lng), words);
+             return;
            }
          });
-        } else {
-          var places = that.searchBox.getPlaces();
-          if (places.length > 0) {
-            var place = places[0];
-            that.moveTo(place.geometry.location);
-          }
+        }
+        var places = that.searchBox.getPlaces();
+        if (places.length > 0) {
+          var place = places[0];
+          that.moveTo(place.geometry.location);
         }
       });
     };

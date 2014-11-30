@@ -4,6 +4,7 @@ import bottle
 from bottle import (
     get,
     run,
+    abort,
     static_file,
     template
 )
@@ -71,7 +72,7 @@ def hashToLatLng(threewords):
         lat,lng = these.decode(threewords)
         return {"lat": lat, "lng": lng}
     except:
-        return {}
+        abort(404)
 
 
 
