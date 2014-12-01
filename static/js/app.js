@@ -122,20 +122,22 @@ var These3Words = (function () {
       that.searchBox = new google.maps.places.SearchBox(that.searchInput);
       google.maps.event.addListener(that.searchBox, 'places_changed',
           function() {
+       // something that matches a 3word, 4word or 6word
+       // takes precedence over the google search result
+       var words = that.searchInput.value;
+       if (/^\w+-\w+-\w+$/.test(words) || /^\w+-\w+-\w+-\w+$/.test(words) ||
+           /^\w+-\w+-\w+-\w+-\w+-\w+$/.test(words)) {
+         apiGet(words, function(status, data) {
+           if (status >= 200 && status < 400) {
+	     that.moveTo(new google.maps.LatLng(data.lat, data.lng), words);
+             return;
+           }
+         });
+        }
         var places = that.searchBox.getPlaces();
         if (places.length > 0) {
           var place = places[0];
-          that.map.setCenter(place.geometry.location);
           that.moveTo(place.geometry.location);
-        } else {
-          var words = that.searchInput.value;
-          if (/\w+-\w+-\w+/.test(words)) {
-            apiGet(words, function(status, data) {
-              if (status >= 200 && status < 400) {
-                that.moveTo(new google.maps.LatLng(data.lat, data.lng), words);
-              }
-            });
-          }
         }
       });
 
@@ -196,6 +198,9 @@ var These3Words = (function () {
   Map.prototype.update = function (latLng, label) {
     this.latLng = latLng;
     this.label = label;
+    this.infoLoc.innerHTML = label;
+    this.infoLatLng.innerHTML = latLng.lat().toFixed(6) +', '+
+                                latLng.lng().toFixed(6);
     this.marker.setPosition(latLng);
     this.marker.setTitle(label);
     if (!this.map.getBounds().contains(latLng)) {
