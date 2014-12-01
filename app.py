@@ -9,13 +9,13 @@ from bottle import (
     template
 )
 
-import thesethreewords as these
+import thisplace
 
 
 example_locs = [("sydney", (-33.867480754852295, 151.20700120925903)),
                 ("battery", (40.70329427719116, -74.0170168876648)),
                 ("san_fran", (37.790114879608154, -122.4202036857605))]
-example_locs = dict((name,these.four_words(pos)) for name,pos in example_locs)
+example_locs = dict((name, thisplace.four_words(pos)) for name,pos in example_locs)
 
 @get('/static/<filename:path>')
 def serve_static(filename):
@@ -32,25 +32,25 @@ def about():
     return template('about', err=None, **example_locs)
 
 
-@get('/<threewords>')
-def showMap(threewords):
+@get('/<fourwords>')
+def showMap(fourwords):
     try:
-        lat, lng = these.decode(threewords)
-        return template('map', lat=lat, lng=lng, threewords=threewords)
+        lat, lng = thisplace.decode(fourwords)
+        return template('map', lat=lat, lng=lng, fourwords=fourwords)
     except:
         return template('about',
-                        err="Could not find location {}".format(threewords),
+                        err="Could not find location {}".format(fourwords),
                         **example_locs)
 
 
 @get('/latlng/<lat:float>,<lng:float>')
 def showMapFromLatLng(lat, lng):
     try:
-        threewords = these.four_words((lat, lng))
-        return template('map', lat=lat, lng=lng, threewords=threewords)
+        fourwords = thisplace.four_words((lat, lng))
+        return template('map', lat=lat, lng=lng, fourwords=fourwords)
     except:
         return template('index',
-                        err="Could not find location {}".format(threewords),
+                        err="Could not find location {}".format(fourwords),
                         **example_locs)
 
 
@@ -58,18 +58,18 @@ def showMapFromLatLng(lat, lng):
 @get('/api/<lat:float>,<lng:float>')
 def latLngToHash(lat, lng):
     try:
-        three = these.three_words((lat,lng))
-        four = these.four_words((lat,lng))
-        six = these.six_words((lat,lng))
+        three = thisplace.three_words((lat,lng))
+        four = thisplace.four_words((lat,lng))
+        six = thisplace.six_words((lat,lng))
         return {'three': three, 'four': four, 'six': six}
     except:
         return {}
 
 
-@get('/api/<threewords>')
-def hashToLatLng(threewords):
+@get('/api/<ifourwords>')
+def hashToLatLng(fourwords):
     try:
-        lat,lng = these.decode(threewords)
+        lat,lng = thisplace.decode(fourwords)
         return {"lat": lat, "lng": lng}
     except:
         abort(404)

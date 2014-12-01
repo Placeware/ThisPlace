@@ -1,6 +1,6 @@
 """
-thesethreewords: Human-readable addresses for every 3x3m square of the earth's surface.
-The simplest ways to use this module are the `three_words` and `decode`
+thisplace: Human-readable addresses for every 3x3m square on the earth's surface.
+The simplest way to use this module are the `four_words` and `decode`
 functions. For more see `WordHasher`.
 """
 import random
