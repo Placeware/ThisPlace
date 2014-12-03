@@ -45,7 +45,7 @@ var ThisPlace = (function () {
         zoom: 14,
         mapTypeControlOptions: {
           style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-          position: google.maps.ControlPosition.RIGHT_BOTTOM,
+          position: google.maps.ControlPosition.BOTTOM_RIGHT,
         },
         panControlOptions: {
           position: google.maps.ControlPosition.RIGHT_BOTTOM,
