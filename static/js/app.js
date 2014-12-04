@@ -55,6 +55,11 @@ var ThisPlace = (function () {
           position: google.maps.ControlPosition.RIGHT_BOTTOM,
         }
       });
+      google.maps.event.addListenerOnce(that.map,
+                                        'bounds_changed', function() {
+                                          introJs().start();
+                                        });
+
       that.marker = new google.maps.Marker({
         position: that.latLng,
         map: that.map,
@@ -79,6 +84,8 @@ var ThisPlace = (function () {
       that.searchInput.classList.add('controls');
       that.searchInput.setAttribute('type', 'text');
       that.searchInput.setAttribute('placeholder', 'Search');
+      that.searchInput.setAttribute('data-intro',
+                                    "Welcome!<br /> Type the name of a place you'd like to label here. Try 'Sydney'");
       that.map.controls[google.maps.ControlPosition.LEFT_TOP].push(
           that.searchInput);
 
@@ -90,6 +97,8 @@ var ThisPlace = (function () {
 
       var infoDisplay = document.createElement('span');
       infoDisplay.id = 'pac-infodisplay';
+      infoDisplay.setAttribute('data-intro',
+                               "This will display the four words labelling your position.");
       infoBox.appendChild(infoDisplay);
 
       var info = document.createElement('div');
@@ -174,7 +183,6 @@ var ThisPlace = (function () {
       label: that.label
     }, that.label, '/' + that.label);
     document.title = 'ThisPlace: ' + that.label;
-
   };
 
   Map.prototype.moveTo = function (latLng) {

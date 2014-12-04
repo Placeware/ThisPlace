@@ -19,22 +19,24 @@
   <!-- Style -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/intro.js/1.0.0/introjs.min.css">
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="//cdn.jsdelivr.net/intro.js/1.0.0/intro.min.js"></script>
   <script src="/static/js/app.js"></script>
   <script>
     (function() {
-      'use strict';
+    'use strict';
     %if lat and lng:
-      var map = new ThisPlace.Map({{lat}}, {{lng}}, '{{fourwords}}');
+    var map = new ThisPlace.Map({{lat}}, {{lng}}, '{{fourwords}}');
     %else:
     var map = new ThisPlace.Map();
     %end
-      //google.maps.event.addDomListener(window, 'load', map.init);
-      map.init();
-     }());
+    //google.maps.event.addDomListener(window, 'load', map.init);
+    map.init();
+    }());
   </script>
   <noscript>
     <div class="panel panel-danger">
