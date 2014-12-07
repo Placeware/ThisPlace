@@ -66,7 +66,7 @@ def latLngToHash(lat, lng):
         return {}
 
 
-@get('/api/<ifourwords>')
+@get('/api/<fourwords>')
 def hashToLatLng(fourwords):
     try:
         lat,lng = thisplace.decode(fourwords)
