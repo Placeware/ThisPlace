@@ -116,8 +116,8 @@ var ThisPlace = (function () {
       aboutBtn.id = 'pac-aboutbtn';
       infoBox.appendChild(aboutBtn);
       var aboutLnk = aboutBtn.appendChild(document.createElement('a'));
-      aboutLnk.href = "/about.html";
-      aboutLnk.innerHTML = "About";
+      aboutLnk.href = "/help.html";
+      aboutLnk.innerHTML = "Help";
 
       that.searchBox = new google.maps.places.SearchBox(that.searchInput);
       google.maps.event.addListener(that.searchBox, 'places_changed',

@@ -27,9 +27,9 @@ def index():
     return template('map', lat=None, lng=None)
 
 
-@get('/about.html')
-def about():
-    return template('about', err=None, **example_locs)
+@get('/help.html')
+def help():
+    return template('help', err=None, **example_locs)
 
 
 @get('/<fourwords>')
@@ -38,7 +38,7 @@ def showMap(fourwords):
         lat, lng = thisplace.decode(fourwords)
         return template('map', lat=lat, lng=lng, fourwords=fourwords)
     except:
-        return template('about',
+        return template('help',
                         err="Could not find location {}".format(fourwords),
                         **example_locs)
 
