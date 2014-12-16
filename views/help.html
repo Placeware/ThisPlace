@@ -14,10 +14,7 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', '', 'auto');
-    ga('send', 'pageview');
   </script>
-
 </head>
 <body>
   <div class="container">
@@ -85,7 +82,7 @@
       <p class="text-center text-muted">Made with ♥ by <a href="https://betatim.github.io/">Tim</a> and <a href="https://dun.gs">Kevin</a>. <a href="https://github.com/placeware/thisplace">Fork it on GitHub</a>.
     </footer>
 </div>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+  <script src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
   <script src="/static/js/app.js"></script>
   <script>
   (function () {
@@ -126,6 +123,11 @@
     };
     window.addEventListener('load', initialise);
   }());
+  </script>
+  <script src="/static/js/analytics.js"></script>
+  <script>
+    Analytics.init();
+    Analytics.sendScreen('help');
   </script>
 </body>
 </html>
