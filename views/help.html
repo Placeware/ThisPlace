@@ -8,8 +8,16 @@
   <!-- Style -->
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/css/style.css">
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-  <script src="/static/js/app.js"></script>
+  <!-- Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+  </script>
+
 </head>
 <body>
   <div class="container">
@@ -77,8 +85,10 @@
       <p class="text-center text-muted">Made with ♥ by <a href="https://betatim.github.io/">Tim</a> and <a href="https://dun.gs">Kevin</a>. <a href="https://github.com/placeware/thisplace">Fork it on GitHub</a>.
     </footer>
 </div>
-<script>
-(function () {
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+  <script src="/static/js/app.js"></script>
+  <script>
+  (function () {
     var initialise = function () {
       var default3words = '{{ sydney }}';
       var searchbox = new google.maps.places.SearchBox(
@@ -115,7 +125,7 @@
       });
     };
     window.addEventListener('load', initialise);
-}());
-</script>
+  }());
+  </script>
 </body>
 </html>
