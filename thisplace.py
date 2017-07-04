@@ -79,28 +79,30 @@ class WordHasher(object):
         self.six_wordlist = HUMAN_WORDLIST
         self.four_wordlist = GOOGLE_4096WORDS
         self.three_wordlist = GOOGLE_WORDLIST
-        
-    def three_words(self, (lat, lon)):
+
+    def three_words(self, lat_long):
         """Convert coordinate to a combination of three words
 
         The coordinate is defined by latitude and longitude
         in degrees.
         """
+        lat, lon = lat_long
         gh = geohash.encode(lat, lon, 9)
         words = "-".join(self.three_wordlist[p] for p in self.to_rugbits(self.geo_to_int(gh)))
         return words
 
-    def four_words(self, (lat, lon)):
+    def four_words(self, lat_long):
         """Convert coordinate to a combination of four words
 
         The coordinate is defined by latitude and longitude
         in degrees.
         """
+        lat, lon = lat_long
         gh = geohash.encode(lat, lon, 9)
         words = "-".join(self.four_wordlist[p] for p in self.to_quads(self.pad(gh)))
         return words
 
-    def six_words(self, (lat, lon)):
+    def six_words(self, lat_long):
         """Convert coordinate to a combination of six words
 
         The coordinate is defined by latitude and longitude
@@ -109,6 +111,7 @@ class WordHasher(object):
         With six words the word list contains only words
         which are short, easy to pronounce and easy distinguish.
         """
+        lat, lon = lat_long
         gh = geohash.encode(lat, lon, 9)
         words = "-".join(self.six_wordlist[p] for p in self.to_bytes(self.pad(gh)))
         return words
@@ -139,7 +142,7 @@ class WordHasher(object):
         number = 0
         for symbol in geo_hash:
             number = number*base + self._decode_symbols[symbol]
-        
+
         return number
 
     def int_to_geo(self, integer):
@@ -150,7 +153,7 @@ class WordHasher(object):
             remainder = integer % base
             integer //= base
             symbols.append(self._encode_symbols[remainder])
-            
+
         return ''.join(reversed(symbols))
 
     def pad(self, geo_hash):
@@ -161,14 +164,14 @@ class WordHasher(object):
     def unpad(self, integer):
         """Remove 3bit of padding to get 45bit geo hash"""
         return integer>>3
-    
+
     def to_bytes(self, integer):
         """Convert a 48bit `integer` to a list of 6bytes"""
         bytes = [integer & 0b11111111]
-        for n in xrange(1,6):
+        for n in range(1,6):
             div = 2**(n*8)
-            bytes.append((integer/div) & 0b11111111)
-        
+            bytes.append((integer//div) & 0b11111111)
+
         bytes.reverse()
         return bytes
 
@@ -179,16 +182,16 @@ class WordHasher(object):
         bytes.reverse()
         for n,b in enumerate(bytes):
             N += b * (2**(8*(n)))
-            
+
         return N
 
     def to_quads(self, integer):
         """Convert a 48bit `integer` to a list of 4 quads"""
         quads = [integer & 0b111111111111]
-        for n in xrange(1,4):
+        for n in range(1,4):
             div = 2**(n*12)
-            quads.append((integer/div) & 0b111111111111)
-        
+            quads.append((integer//div) & 0b111111111111)
+
         quads.reverse()
         return quads
 
@@ -199,17 +202,17 @@ class WordHasher(object):
         quads.reverse()
         for n,b in enumerate(quads):
             N += b * (2**(12*(n)))
-            
+
         return N
 
     def to_rugbits(self, integer):
         """Convert a 45bit `integer` to a list of 3rugbits
-    
+
         A rugbit is like a byte but with 15bits instead of eight.
         """
         fifteen_bits = 0b111111111111111
-        rugbits = [(integer/(2**30)) & fifteen_bits,
-                   (integer/(2**15)) & fifteen_bits,
+        rugbits = [(integer//(2**30)) & fifteen_bits,
+                   (integer//(2**15)) & fifteen_bits,
                    integer & fifteen_bits]
         return rugbits
 

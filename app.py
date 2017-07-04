@@ -58,22 +58,21 @@ def showMapFromLatLng(lat, lng):
 @get('/api/<lat:float>,<lng:float>')
 def latLngToHash(lat, lng):
     try:
-        three = thisplace.three_words((lat,lng))
-        four = thisplace.four_words((lat,lng))
-        six = thisplace.six_words((lat,lng))
+        three = thisplace.three_words((lat, lng))
+        four = thisplace.four_words((lat, lng))
+        six = thisplace.six_words((lat, lng))
         return {'three': three, 'four': four, 'six': six}
-    except:
+    except Exception:
         return {}
 
 
 @get('/api/<fourwords>')
 def hashToLatLng(fourwords):
     try:
-        lat,lng = thisplace.decode(fourwords)
+        lat, lng = thisplace.decode(fourwords)
         return {"lat": lat, "lng": lng}
     except:
         abort(404)
-
 
 
 if __name__ == '__main__':
