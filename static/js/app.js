@@ -45,7 +45,7 @@ var ThisPlace = (function () {
         zoom: 14,
         mapTypeControlOptions: {
           style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-          position: google.maps.ControlPosition.BOTTOM_RIGHT,
+          position: google.maps.ControlPosition.RIGHT_BOTTOM,
         },
         panControlOptions: {
           position: google.maps.ControlPosition.RIGHT_BOTTOM,
@@ -95,7 +95,7 @@ var ThisPlace = (function () {
       var info = document.createElement('div');
       //info.id = 'pac-blah';
       infoDisplay.appendChild(info);
-      
+
       var infoText = document.createElement('span');
       infoText.id = 'pac-infotext';
       infoText.innerHTML = '4words:';
